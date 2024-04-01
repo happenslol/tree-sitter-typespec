@@ -25,7 +25,7 @@ module.exports = grammar({
     model_statement: $ => seq(
       optional($.decorator),
       "model",
-      $.identifier,
+      field("name", $.identifier),
       "{",
       repeat($.field),
       "}",
@@ -33,7 +33,7 @@ module.exports = grammar({
 
     field: $ => seq(
       optional($.decorator),
-      $.identifier,
+      field("name", $.identifier),
       ":",
       $._type,
       ";",
@@ -42,7 +42,7 @@ module.exports = grammar({
     interface_statement: $ => seq(
       optional($.decorator),
       "interface",
-      $.identifier,
+      field("name", $.identifier),
       "{",
       repeat($.op),
       "}",
@@ -50,7 +50,7 @@ module.exports = grammar({
 
     op: $ => seq(
       optional($.decorator),
-      $.identifier,
+      field("name", $.identifier),
       optional($.arguments),
       ":",
       $._type,
@@ -59,7 +59,7 @@ module.exports = grammar({
 
     decorator: $ => seq(
       "@",
-      $.identifier,
+      field("name", $.identifier),
       optional($.decorator_arguments),
     ),
 
@@ -87,9 +87,9 @@ module.exports = grammar({
 
     argument: $ => seq(
       optional($.decorator),
-      $.identifier,
+      field("name", $.identifier),
       ":",
-      $._type,
+      field("type", $._type),
     ),
 
     string_literal: $ => choice(

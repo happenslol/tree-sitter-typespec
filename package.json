@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "description": "typespec grammar for tree-sitter",
   "main": "bindings/node",
+  "tree-sitter": [
+    {
+      "scope": "source.typespec",
+      "file-types": ["typespec", "tsp"]
+    }
+  ],
   "keywords": [
     "parsing",
     "incremental"
