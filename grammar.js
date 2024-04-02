@@ -1,13 +1,41 @@
 module.exports = grammar({
   name: "typespec",
   rules: {
-    source_file: $ => repeat($._statement),
+    source_file: $ => repeat($._item),
+
+    _item: $ => choice(
+      $._comment,
+      $._statement,
+    ),
 
     _statement: $ => choice(
-      $._comment,
       $.namespace_statement,
       $.import_statement,
       $.using_statement,
+
+      // TODO
+      // $.model_statement,
+      // $.scalar_statement,
+      // $.interface_statement,
+      // $.operation_statement,
+      // $.enum_statement,
+      // $.alias_statement,
+      // $.augment_decorator_statement,
+      // $.decorator_declaration_statement,
+      // $.function_declaration_statement,
+    ),
+
+    decorator_list: $ => repeat1($.decorator),
+
+    decorator: $ => seq(
+      "@",
+      $.identifier_or_member_expression,
+      optional($.decorator_arguments)
+    ),
+
+    decorator_arguments: $ => seq(
+      // TODO
+      "(", ")",
     ),
 
     import_statement: $ => seq(
