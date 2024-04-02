@@ -4,138 +4,251 @@ module.exports = grammar({
     source_file: $ => repeat($._statement),
 
     _statement: $ => choice(
+      $._comment,
+      $.namespace_statement,
       $.import_statement,
       $.using_statement,
-      $.model_statement,
-      $.interface_statement,
     ),
 
     import_statement: $ => seq(
       "import",
-      $.string_literal,
+      $._string_literal,
       ";",
     ),
 
     using_statement: $ => seq(
       "using",
-      $.package_path,
+      $.identifier_or_member_expression,
       ";",
+    ),
+
+    namespace_statement: $ => seq(
+      "namespace",
+      $.identifier_or_member_expression,
+      choice(
+        ";",
+        seq("{", repeat($._statement), "}"),
+      ),
     ),
 
     model_statement: $ => seq(
-      optional($.decorator),
       "model",
-      field("name", $.identifier),
-      "{",
-      repeat($.field),
-      "}",
     ),
 
-    field: $ => seq(
-      optional($.decorator),
-      field("name", $.identifier),
-      ":",
-      $._type,
-      ";",
+    identifier_or_member_expression: $ => choice(
+      $._identifier,
+      $.member_expression,
     ),
 
-    interface_statement: $ => seq(
-      optional($.decorator),
-      "interface",
-      field("name", $.identifier),
-      "{",
-      repeat($.op),
-      "}",
+    _identifier: $ => choice(
+      $.plain_identifier,
+      $.backticked_identifier,
     ),
 
-    op: $ => seq(
-      optional($.decorator),
-      field("name", $.identifier),
-      optional($.arguments),
-      ":",
-      $._type,
-      ";"
+    plain_identifier: $ => /[a-zA-Z_][a-zA-Z0-9_$]*/,
+    // TODO: Escape sequences
+    backticked_identifier: $ => /`[^`]*`/,
+
+    member_expression: $ => seq(
+      $._identifier,
+      repeat1(seq(".", $._identifier)),
     ),
 
-    decorator: $ => seq(
-      "@",
-      field("name", $.identifier),
-      optional($.decorator_arguments),
+    boolean_literal: $ => choice("true", "false"),
+
+    _numeric_literal: $ => choice(
+      $.decimal_literal,
+      $.hex_integer_literal,
+      $.binary_integer_literal,
     ),
 
-    decorator_arguments: $ => seq(
-      "(",
-      optional($.string_list),
-      ")",
+    decimal_literal: $ => token(
+      seq(
+        choice(
+          seq(optional(choice("-", "+")), "0"),
+          seq(optional(choice("-", "+")), /[1-9]/, /\d*/)
+        ),
+        optional(seq(".", /\d+/)),
+        optional(seq("e", optional(/[+-]/), /\d+/))
+      )
     ),
 
-    string_list: $ => seq(
-      $.string_literal,
-      repeat(seq(",", $.string_literal)),
+    hex_integer_literal: $ => token(seq("0x", /[0-9a-fA-F]+/)),
+    binary_integer_literal: $ => token(seq("0b", /[01]+/)),
+
+    _string_literal: $ => choice(
+      $.quoted_string_literal,
+      $.tripe_quoted_string_literal,
     ),
 
-    arguments: $ => seq(
-      "(",
-      optional($.argument_list),
-      ")",
+    quoted_string_literal: $ => seq(
+      '"',
+      repeat(choice(
+        $.quoted_string_fragment,
+        $.escape_sequence,
+      )),
+      '"',
     ),
 
-    argument_list: $ => seq(
-      $.argument,
-      repeat(seq(",", $.argument)),
+    tripe_quoted_string_literal: $ => seq(
+      '"""',
+      repeat(choice(
+        $.triple_quoted_string_fragment,
+        $.escape_sequence,
+      )),
+      '"""',
     ),
 
-    argument: $ => seq(
-      optional($.decorator),
-      field("name", $.identifier),
-      ":",
-      field("type", $._type),
-    ),
-
-    string_literal: $ => choice(
-      seq('"', '"'),
-      seq('"', $.string_content, '"'),
-    ),
-
-    string_content: $ => repeat1(choice(
-      token.immediate(prec(1, /[^\\"\n]+/)),
-      $.escape_sequence,
-    )),
-
-    escape_sequence: _ => token.immediate(seq(
+    escape_sequence: $ => token.immediate(seq(
       '\\',
-      /(\"|\\|\/|b|f|n|r|t|u)/,
+      /(\"|\\|r|n|t|`)/,
     )),
 
-    package_path: $ => seq(
-      $.identifier,
-      repeat(seq(".", $.identifier)),
+    quoted_string_fragment: _ => token.immediate(/[^"\\\r\n]+/),
+    triple_quoted_string_fragment: _ => token.immediate(/[^"\\]+/),
+
+    _comment: $ => choice(
+      $.single_line_comment,
+      $.multi_line_comment,
     ),
 
-    identifier: _ => {
-      const alpha = /[^\x00-\x1F\s\p{Zs}0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
-      const alphanumeric = /[^\x00-\x1F\s\p{Zs}:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
-      return token(seq(alpha, repeat(alphanumeric)));
-    },
-
-    _type: $ => choice(
-      $.list_type,
-      $.primitive_type,
-      $.reference_type,
-    ),
-
-    primitive_type: $ => choice(
-      "int",
-      "float",
-      "string",
-      "bool",
-    ),
-
-    reference_type: $ => $.identifier,
-
-    list_type: $ => seq(
-      $._type,
-      "[]",
-    ),
+    single_line_comment: $ => token(seq("//", /[^\r\n]*/)),
+    multi_line_comment: $ => token(seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")),
   },
 })
+
+
+// _statement: $ => choice(
+//   $.import_statement,
+//   $.using_statement,
+//   $.model_statement,
+//   $.interface_statement,
+// ),
+//
+// import_statement: $ => seq(
+//   "import",
+//   $.string_literal,
+//   ";",
+// ),
+//
+// using_statement: $ => seq(
+//   "using",
+//   $.package_path,
+//   ";",
+// ),
+//
+// model_statement: $ => seq(
+//   optional($.decorator),
+//   "model",
+//   field("name", $.identifier),
+//   "{",
+//   repeat($.field),
+//   "}",
+// ),
+//
+// field: $ => seq(
+//   optional($.decorator),
+//   field("name", $.identifier),
+//   ":",
+//   $._type,
+//   ";",
+// ),
+//
+// interface_statement: $ => seq(
+//   optional($.decorator),
+//   "interface",
+//   field("name", $.identifier),
+//   "{",
+//   repeat($.op),
+//   "}",
+// ),
+//
+// op: $ => seq(
+//   optional($.decorator),
+//   field("name", $.identifier),
+//   optional($.arguments),
+//   ":",
+//   $._type,
+//   ";"
+// ),
+//
+// decorator: $ => seq(
+//   "@",
+//   field("name", $.identifier),
+//   optional($.decorator_arguments),
+// ),
+//
+// decorator_arguments: $ => seq(
+//   "(",
+//   optional($.string_list),
+//   ")",
+// ),
+//
+// string_list: $ => seq(
+//   $.string_literal,
+//   repeat(seq(",", $.string_literal)),
+// ),
+//
+// arguments: $ => seq(
+//   "(",
+//   optional($.argument_list),
+//   ")",
+// ),
+//
+// argument_list: $ => seq(
+//   $.argument,
+//   repeat(seq(",", $.argument)),
+// ),
+//
+// argument: $ => seq(
+//   optional($.decorator),
+//   field("name", $.identifier),
+//   ":",
+//   field("type", $._type),
+// ),
+//
+// string_literal: $ => choice(
+//   seq('"', '"'),
+//   seq('"', $.string_content, '"'),
+// ),
+//
+// string_content: $ => repeat1(choice(
+//   token.immediate(prec(1, /[^\\"\n]+/)),
+//   $.escape_sequence,
+// )),
+//
+// escape_sequence: _ => token.immediate(seq(
+//   '\\',
+//   /(\"|\\|\/|b|f|n|r|t|u)/,
+// )),
+//
+// package_path: $ => seq(
+//   $.identifier,
+//   repeat(seq(".", $.identifier)),
+// ),
+//
+// identifier: _ => {
+//   const alpha = /[^\x00-\x1F\s\p{Zs}0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+//   const alphanumeric = /[^\x00-\x1F\s\p{Zs}:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
+//   return token(seq(alpha, repeat(alphanumeric)));
+// },
+//
+// _type: $ => choice(
+//   $.list_type,
+//   $.primitive_type,
+//   $.reference_type,
+// ),
+//
+// primitive_type: $ => choice(
+//   "int",
+//   "float",
+//   "string",
+//   "bool",
+// ),
+//
+// reference_type: $ => $.identifier,
+//
+// list_type: $ => seq(
+//   $._type,
+//   "[]",
+// ),

@@ -1,0 +1,93 @@
+============================================
+Comments
+============================================
+
+/*
+This is a multiline comment.
+With multiple lines.
+*/
+
+// Single line
+
+// Multiple Single
+// Line comments
+
+/* Another multi line comment */
+
+---
+
+(source_file
+  (multi_line_comment)
+  (single_line_comment)
+  (single_line_comment)
+  (single_line_comment)
+  (multi_line_comment))
+
+============================================
+Namespaces and identifiers
+============================================
+
+namespace Some;
+
+namespace Some.Nested.Namespace;
+
+namespace WithBlock {}
+
+namespace Nested {
+  namespace Level1 {
+    namespace Level2 {}
+  }
+}
+
+---
+
+(source_file
+  (namespace_statement
+    (identifier_or_member_expression
+      (plain_identifier)))
+  (namespace_statement
+    (identifier_or_member_expression
+      (member_expression
+        (plain_identifier)
+        (plain_identifier)
+        (plain_identifier))))
+  (namespace_statement
+    (identifier_or_member_expression
+      (plain_identifier)))
+  (namespace_statement
+    (identifier_or_member_expression
+      (plain_identifier))
+    (namespace_statement
+      (identifier_or_member_expression
+        (plain_identifier))
+      (namespace_statement
+        (identifier_or_member_expression
+          (plain_identifier))))))
+
+============================================
+Imports and using statements
+============================================
+
+import "some-package";
+import "another-package";
+
+using Base;
+using Some.Interface;
+
+---
+
+(source_file
+  (import_statement
+    (quoted_string_literal
+      (quoted_string_fragment)))
+  (import_statement
+    (quoted_string_literal
+      (quoted_string_fragment)))
+  (using_statement
+    (identifier_or_member_expression
+      (plain_identifier)))
+  (using_statement
+    (identifier_or_member_expression
+      (member_expression
+        (plain_identifier)
+        (plain_identifier)))))
