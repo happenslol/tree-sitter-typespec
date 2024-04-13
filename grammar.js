@@ -12,9 +12,9 @@ module.exports = grammar({
       $.namespace_statement,
       $.import_statement,
       $.using_statement,
+      $.model_statement,
 
       // TODO
-      // $.model_statement,
       // $.scalar_statement,
       // $.interface_statement,
       // $.operation_statement,
@@ -29,7 +29,7 @@ module.exports = grammar({
 
     decorator: $ => seq(
       "@",
-      $.identifier_or_member_expression,
+      $._identifier_or_member_expression,
       optional($.decorator_arguments)
     ),
 
@@ -46,13 +46,14 @@ module.exports = grammar({
 
     using_statement: $ => seq(
       "using",
-      $.identifier_or_member_expression,
+      $._identifier_or_member_expression,
       ";",
     ),
 
     namespace_statement: $ => seq(
+      optional($.decorator_list),
       "namespace",
-      $.identifier_or_member_expression,
+      $._identifier_or_member_expression,
       choice(
         ";",
         seq("{", repeat($._statement), "}"),
@@ -60,10 +61,71 @@ module.exports = grammar({
     ),
 
     model_statement: $ => seq(
+      optional($.decorator_list),
       "model",
+      $._identifier,
+      // TODO
+      // $.template_parameters,
+      choice(
+        seq($.model_is_heritage, ";"),
+        seq(
+          optional($._model_heritage),
+          "{",
+          // TODO
+          // optional($.model_body),
+          "}"
+        ),
+      ),
     ),
 
-    identifier_or_member_expression: $ => choice(
+    // TODO
+    // model_body: $ => seq(),
+
+    _model_heritage: $ => choice(
+      $.model_is_heritage,
+      $.model_extends_heritage,
+    ),
+
+    model_is_heritage: $ => seq("is", $._expression),
+    model_extends_heritage: $ => seq("extends", $._expression),
+
+    expression_list: $ => seq(
+      $._expression,
+      repeat(seq(",", $._expression)),
+    ),
+
+    _expression: $ => choice(
+      $.union_expression,
+      $.intersection_expression,
+      $.value_of_expression,
+      $.array_expression,
+      $._primary_expression,
+    ),
+
+    union_expression: $ => prec.left(1, seq(optional($._expression), "|", $._expression)),
+    intersection_expression: $ => prec.left(2, seq(optional($._expression), "&", $._expression)),
+    value_of_expression: $ => prec(3, seq("valueof", $._expression)),
+    array_expression: $ => prec(4, seq($._primary_expression, "[", "]")),
+
+    _primary_expression: $ => choice(
+      $._literal,
+      $.reference_expression,
+      $.parenthesized_expression,
+    ),
+
+    reference_expression: $ => seq(
+      $._identifier_or_member_expression,
+
+      // TODO
+      // optional($.template_arguments),
+    ),
+
+    parenthesized_expression: $ => seq("(", $._expression, ")"),
+
+    // TODO
+    // template_parameters: $ => {},
+
+    _identifier_or_member_expression: $ => choice(
       $._identifier,
       $.member_expression,
     ),
@@ -80,6 +142,12 @@ module.exports = grammar({
     member_expression: $ => seq(
       $._identifier,
       repeat1(seq(".", $._identifier)),
+    ),
+
+    _literal: $ => choice(
+      $._string_literal,
+      $.boolean_literal,
+      $._numeric_literal,
     ),
 
     boolean_literal: $ => choice("true", "false"),

@@ -3,16 +3,16 @@ Comments
 ============================================
 
 /*
-This is a multiline comment.
-With multiple lines.
+Block comment with
+multiple lines
 */
 
-// Single line
+// Single line comment
 
 // Multiple Single
-// Line comments
+// line comments
 
-/* Another multi line comment */
+/* Single line block comment */
 
 ---
 
@@ -27,15 +27,15 @@ With multiple lines.
 Namespaces and identifiers
 ============================================
 
-namespace Some;
+namespace Foo;
 
-namespace Some.Nested.Namespace;
+namespace Foo.Bar.Baz;
 
-namespace WithBlock {}
+namespace Foo {}
 
-namespace Nested {
-  namespace Level1 {
-    namespace Level2 {}
+namespace Foo {
+  namespace Bar {
+    namespace Baz {}
   }
 }
 
@@ -43,36 +43,30 @@ namespace Nested {
 
 (source_file
   (namespace_statement
-    (identifier_or_member_expression
+    (plain_identifier))
+  (namespace_statement
+    (member_expression
+      (plain_identifier)
+      (plain_identifier)
       (plain_identifier)))
   (namespace_statement
-    (identifier_or_member_expression
-      (member_expression
-        (plain_identifier)
-        (plain_identifier)
-        (plain_identifier))))
+    (plain_identifier))
   (namespace_statement
-    (identifier_or_member_expression
-      (plain_identifier)))
-  (namespace_statement
-    (identifier_or_member_expression
-      (plain_identifier))
+    (plain_identifier)
     (namespace_statement
-      (identifier_or_member_expression
-        (plain_identifier))
+      (plain_identifier)
       (namespace_statement
-        (identifier_or_member_expression
-          (plain_identifier))))))
+        (plain_identifier)))))
 
 ============================================
 Imports and using statements
 ============================================
 
-import "some-package";
-import "another-package";
+import "foo";
+import "bar";
 
-using Base;
-using Some.Interface;
+using Foo;
+using Foo.Bar;
 
 ---
 
@@ -84,10 +78,103 @@ using Some.Interface;
     (quoted_string_literal
       (quoted_string_fragment)))
   (using_statement
-    (identifier_or_member_expression
-      (plain_identifier)))
+    (plain_identifier))
   (using_statement
-    (identifier_or_member_expression
-      (member_expression
-        (plain_identifier)
-        (plain_identifier)))))
+    (member_expression
+      (plain_identifier)
+      (plain_identifier))))
+
+============================================
+Model heritage
+============================================
+
+model Foo {}
+
+model Foo is A;
+
+model Foo is A.B.C;
+
+model Foo extends A.B.C {}
+
+---
+
+(source_file
+  (model_statement
+    (plain_identifier))
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (reference_expression
+        (plain_identifier))))
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (reference_expression
+        (member_expression
+          (plain_identifier)
+          (plain_identifier)
+          (plain_identifier)))))
+  (model_statement
+    (plain_identifier)
+    (model_extends_heritage
+      (reference_expression
+        (member_expression
+          (plain_identifier)
+          (plain_identifier)
+          (plain_identifier))))))
+
+============================================
+Expressions
+============================================
+
+model Foo is A | B | C;
+
+model Foo is A & B & C;
+
+model Foo is A[] & valueof B | (C & D.A.B);
+
+---
+
+(source_file
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (union_expression
+        (union_expression
+          (reference_expression
+            (plain_identifier))
+          (reference_expression
+            (plain_identifier)))
+        (reference_expression
+          (plain_identifier)))))
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (intersection_expression
+        (intersection_expression
+          (reference_expression
+            (plain_identifier))
+          (reference_expression
+            (plain_identifier)))
+        (reference_expression
+          (plain_identifier)))))
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (union_expression
+        (intersection_expression
+          (array_expression
+            (reference_expression
+              (plain_identifier)))
+          (value_of_expression
+            (reference_expression
+              (plain_identifier))))
+        (parenthesized_expression
+          (intersection_expression
+            (reference_expression
+              (plain_identifier))
+            (reference_expression
+              (member_expression
+                (plain_identifier)
+                (plain_identifier)
+                (plain_identifier)))))))))
