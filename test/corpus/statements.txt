@@ -100,7 +100,8 @@ model Foo extends A.B.C {}
 
 (source_file
   (model_statement
-    (plain_identifier))
+    (plain_identifier)
+    (model_expression))
   (model_statement
     (plain_identifier)
     (model_is_heritage
@@ -121,7 +122,8 @@ model Foo extends A.B.C {}
         (member_expression
           (plain_identifier)
           (plain_identifier)
-          (plain_identifier))))))
+          (plain_identifier))))
+    (model_expression)))
 
 ============================================
 Expressions
@@ -228,7 +230,8 @@ model Foo is A<T>;
     (template_parameters
       (template_parameter_list
         (template_parameter
-          (plain_identifier)))))
+          (plain_identifier))))
+    (model_expression))
   (model_statement
     (plain_identifier)
     (template_parameters
@@ -236,7 +239,8 @@ model Foo is A<T>;
         (template_parameter
           (plain_identifier))
         (template_parameter
-          (plain_identifier)))))
+          (plain_identifier))))
+    (model_expression))
   (model_statement
     (plain_identifier)
     (template_parameters
@@ -250,7 +254,8 @@ model Foo is A<T>;
           (plain_identifier)
           (template_default
             (reference_expression
-              (plain_identifier)))))))
+              (plain_identifier))))))
+    (model_expression))
   (model_statement
     (plain_identifier)
     (template_parameters
@@ -264,7 +269,8 @@ model Foo is A<T>;
           (plain_identifier)
           (template_constraint
             (reference_expression
-              (plain_identifier)))))))
+              (plain_identifier))))))
+    (model_expression))
   (model_statement
     (plain_identifier)
     (template_parameters
@@ -276,7 +282,8 @@ model Foo is A<T>;
               (plain_identifier)))
           (template_default
             (reference_expression
-              (plain_identifier)))))))
+              (plain_identifier))))))
+    (model_expression))
   (model_statement
     (plain_identifier)
     (model_is_heritage
@@ -286,3 +293,89 @@ model Foo is A<T>;
           (expression_list
             (reference_expression
               (plain_identifier))))))))
+
+============================================
+Models
+============================================
+
+model Foo {
+  a: string
+  b: int32;
+  c: bool,
+}
+
+model Foo {
+  ...Bar
+  ...Bar.Baz
+  
+  @foo a: string;
+  b?: int32,
+  "c": bool
+  d: A | B
+  e: "literal"
+  f: 123
+}
+
+---
+
+(source_file
+  (model_statement
+    (plain_identifier)
+    (model_expression
+      (model_body
+        (model_property
+          (plain_identifier)
+          (reference_expression
+            (plain_identifier)))
+        (model_property
+          (plain_identifier)
+          (reference_expression
+            (plain_identifier)))
+        (model_property
+          (plain_identifier)
+          (reference_expression
+            (plain_identifier))))))
+  (model_statement
+    (plain_identifier)
+    (model_expression
+      (model_body
+        (model_property
+          (model_spread_property
+            (reference_expression
+              (plain_identifier))))
+        (model_property
+          (model_spread_property
+            (reference_expression
+              (member_expression
+                (plain_identifier)
+                (plain_identifier)))))
+        (model_property
+          (decorator_list
+            (decorator
+              (plain_identifier)))
+          (plain_identifier)
+          (reference_expression
+            (plain_identifier)))
+        (model_property
+          (plain_identifier)
+          (reference_expression
+            (plain_identifier)))
+        (model_property
+          (quoted_string_literal
+            (quoted_string_fragment))
+          (reference_expression
+            (plain_identifier)))
+        (model_property
+          (plain_identifier)
+          (union_expression
+            (reference_expression
+              (plain_identifier))
+            (reference_expression
+              (plain_identifier))))
+        (model_property
+          (plain_identifier)
+          (quoted_string_literal
+            (quoted_string_fragment)))
+        (model_property
+          (plain_identifier)
+          (decimal_literal))))))

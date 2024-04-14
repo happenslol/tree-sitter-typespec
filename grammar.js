@@ -1,5 +1,12 @@
 module.exports = grammar({
   name: "typespec",
+
+  extras: $ => [
+    $.single_line_comment,
+    $.multi_line_comment,
+    /[\s]/ // TODO: All possible whitespace characters
+  ],
+
   rules: {
     source_file: $ => repeat($._item),
 
@@ -67,18 +74,9 @@ module.exports = grammar({
       optional($.template_parameters),
       choice(
         seq($.model_is_heritage, ";"),
-        seq(
-          optional($._model_heritage),
-          "{",
-          // TODO
-          // optional($.model_body),
-          "}"
-        ),
+        seq(optional($._model_heritage), $.model_expression),
       ),
     ),
-
-    // TODO
-    // model_body: $ => seq(),
 
     _model_heritage: $ => choice(
       $.model_is_heritage,
@@ -110,7 +108,29 @@ module.exports = grammar({
       $._literal,
       $.reference_expression,
       $.parenthesized_expression,
+      $.model_expression,
+
+      // TODO
+      // $.tuple_expression,
     ),
+
+    model_expression: $ => seq("{", optional($.model_body), "}"),
+
+    model_body: $ => repeat1($.model_property),
+
+    model_property: $ => choice(
+      $.model_spread_property,
+      seq(
+        optional($.decorator_list),
+        choice($._identifier, $._string_literal),
+        optional("?"),
+        ":",
+        $._expression,
+        optional(choice(",", ";")),
+      ),
+    ),
+
+    model_spread_property: $ => seq("...", $.reference_expression),
 
     reference_expression: $ => seq(
       $._identifier_or_member_expression,
