@@ -131,7 +131,9 @@ model Foo is A | B | C;
 
 model Foo is A & B & C;
 
-model Foo is A[] & valueof B | (C & D.A.B);
+model Foo is A[] & valueof B | (C & D.E.F);
+
+model Foo is A<B> & C<D> & E<F>;
 
 ---
 
@@ -177,4 +179,110 @@ model Foo is A[] & valueof B | (C & D.A.B);
               (member_expression
                 (plain_identifier)
                 (plain_identifier)
+                (plain_identifier))))))))
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (intersection_expression
+        (intersection_expression
+          (reference_expression
+            (plain_identifier)
+            (template_arguments
+              (expression_list
+                (reference_expression
+                  (plain_identifier)))))
+          (reference_expression
+            (plain_identifier)
+            (template_arguments
+              (expression_list
+                (reference_expression
+                  (plain_identifier))))))
+        (reference_expression
+          (plain_identifier)
+          (template_arguments
+            (expression_list
+              (reference_expression
                 (plain_identifier)))))))))
+
+============================================
+Template parameters
+============================================
+
+model Foo<T> {}
+
+model Foo<T, U> {}
+
+model Foo<T = string, U = int32> {}
+
+model Foo<T extends A, U extends B> {}
+
+model Foo<T extends string = string> {}
+
+model Foo is A<T>;
+
+---
+
+(source_file
+  (model_statement
+    (plain_identifier)
+    (template_parameters
+      (template_parameter_list
+        (template_parameter
+          (plain_identifier)))))
+  (model_statement
+    (plain_identifier)
+    (template_parameters
+      (template_parameter_list
+        (template_parameter
+          (plain_identifier))
+        (template_parameter
+          (plain_identifier)))))
+  (model_statement
+    (plain_identifier)
+    (template_parameters
+      (template_parameter_list
+        (template_parameter
+          (plain_identifier)
+          (template_default
+            (reference_expression
+              (plain_identifier))))
+        (template_parameter
+          (plain_identifier)
+          (template_default
+            (reference_expression
+              (plain_identifier)))))))
+  (model_statement
+    (plain_identifier)
+    (template_parameters
+      (template_parameter_list
+        (template_parameter
+          (plain_identifier)
+          (template_constraint
+            (reference_expression
+              (plain_identifier))))
+        (template_parameter
+          (plain_identifier)
+          (template_constraint
+            (reference_expression
+              (plain_identifier)))))))
+  (model_statement
+    (plain_identifier)
+    (template_parameters
+      (template_parameter_list
+        (template_parameter
+          (plain_identifier)
+          (template_constraint
+            (reference_expression
+              (plain_identifier)))
+          (template_default
+            (reference_expression
+              (plain_identifier)))))))
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (reference_expression
+        (plain_identifier)
+        (template_arguments
+          (expression_list
+            (reference_expression
+              (plain_identifier))))))))

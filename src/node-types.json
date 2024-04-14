@@ -95,6 +95,65 @@
     }
   },
   {
+    "type": "expression_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_expression",
+          "named": true
+        },
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "intersection_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "reference_expression",
+          "named": true
+        },
+        {
+          "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "union_expression",
+          "named": true
+        },
+        {
+          "type": "value_of_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "import_statement",
     "named": true,
     "fields": {},
@@ -336,6 +395,10 @@
         {
           "type": "plain_identifier",
           "named": true
+        },
+        {
+          "type": "template_parameters",
+          "named": true
         }
       ]
     }
@@ -466,7 +529,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -479,6 +542,10 @@
         },
         {
           "type": "plain_identifier",
+          "named": true
+        },
+        {
+          "type": "template_arguments",
           "named": true
         }
       ]
@@ -514,6 +581,196 @@
         },
         {
           "type": "using_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_constraint",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array_expression",
+          "named": true
+        },
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "intersection_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "reference_expression",
+          "named": true
+        },
+        {
+          "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "union_expression",
+          "named": true
+        },
+        {
+          "type": "value_of_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_default",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array_expression",
+          "named": true
+        },
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "intersection_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "reference_expression",
+          "named": true
+        },
+        {
+          "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "union_expression",
+          "named": true
+        },
+        {
+          "type": "value_of_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "backticked_identifier",
+          "named": true
+        },
+        {
+          "type": "plain_identifier",
+          "named": true
+        },
+        {
+          "type": "template_constraint",
+          "named": true
+        },
+        {
+          "type": "template_default",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_parameter_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "template_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "template_parameter_list",
           "named": true
         }
       ]
@@ -700,11 +957,27 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
   {
     "type": ";",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
     "named": false
   },
   {

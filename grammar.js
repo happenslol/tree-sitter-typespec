@@ -64,8 +64,7 @@ module.exports = grammar({
       optional($.decorator_list),
       "model",
       $._identifier,
-      // TODO
-      // $.template_parameters,
+      optional($.template_parameters),
       choice(
         seq($.model_is_heritage, ";"),
         seq(
@@ -115,15 +114,29 @@ module.exports = grammar({
 
     reference_expression: $ => seq(
       $._identifier_or_member_expression,
-
-      // TODO
-      // optional($.template_arguments),
+      optional($.template_arguments),
     ),
 
     parenthesized_expression: $ => seq("(", $._expression, ")"),
 
-    // TODO
-    // template_parameters: $ => {},
+    template_arguments: $ => seq("<", $.expression_list, ">"),
+
+    template_parameters: $ => seq("<", $.template_parameter_list, ">"),
+
+    template_parameter_list: $ => seq(
+      $.template_parameter,
+      repeat(seq(",", $.template_parameter)),
+    ),
+
+    template_parameter: $ => seq(
+      $._identifier,
+      optional($.template_constraint),
+      optional($.template_default),
+    ),
+
+    template_constraint: $ => seq("extends", $._expression),
+
+    template_default: $ => seq("=", $._expression),
 
     _identifier_or_member_expression: $ => choice(
       $._identifier,
