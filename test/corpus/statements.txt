@@ -31,6 +31,8 @@ namespace Foo;
 
 namespace Foo.Bar.Baz;
 
+namespace `Foo \` Bar \n Baz`;
+
 namespace Foo {}
 
 namespace Foo {
@@ -49,6 +51,13 @@ namespace Foo {
       (plain_identifier)
       (plain_identifier)
       (plain_identifier)))
+  (namespace_statement
+    (backticked_identifier
+      (backticked_identifier_fragment)
+      (escape_sequence)
+      (backticked_identifier_fragment)
+      (escape_sequence)
+      (backticked_identifier_fragment)))
   (namespace_statement
     (plain_identifier))
   (namespace_statement

@@ -280,8 +280,17 @@ module.exports = grammar({
     ),
 
     plain_identifier: $ => /[a-zA-Z_][a-zA-Z0-9_$]*/,
-    // TODO: Escape sequences
-    backticked_identifier: $ => /`[^`]*`/,
+
+    backticked_identifier: $ => seq(
+      "`",
+      repeat(choice(
+        $.backticked_identifier_fragment,
+        $.escape_sequence,
+      )),
+      "`",
+    ),
+
+    backticked_identifier_fragment: $ => token.immediate(/[^`\\]+/),
 
     member_expression: $ => seq(
       $._identifier,

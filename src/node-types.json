@@ -157,6 +157,25 @@
     }
   },
   {
+    "type": "backticked_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "backticked_identifier_fragment",
+          "named": true
+        },
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "boolean_literal",
     "named": true,
     "fields": {}
@@ -1849,11 +1868,15 @@
     "named": false
   },
   {
+    "type": "`",
+    "named": false
+  },
+  {
     "type": "alias",
     "named": false
   },
   {
-    "type": "backticked_identifier",
+    "type": "backticked_identifier_fragment",
     "named": true
   },
   {
