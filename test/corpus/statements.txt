@@ -480,3 +480,25 @@ alias A<Foo> = B<C>;
         (expression_list
           (reference_expression
             (plain_identifier)))))))
+
+============================================
+Decorator augments
+============================================
+
+@@foo
+
+@@foo("a", "b")
+
+---
+
+(source_file
+  (augment_decorator_statement
+    (plain_identifier))
+  (augment_decorator_statement
+    (plain_identifier)
+    (decorator_arguments
+      (expression_list
+        (quoted_string_literal
+          (quoted_string_fragment))
+        (quoted_string_literal
+          (quoted_string_fragment))))))

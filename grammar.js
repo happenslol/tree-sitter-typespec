@@ -24,11 +24,11 @@ module.exports = grammar({
       $.interface_statement,
       $.enum_statement,
       $.alias_statement,
+      $.augment_decorator_statement,
       ";",
 
       // TODO
       // $.operation_statement,
-      // $.augment_decorator_statement,
       // $.decorator_declaration_statement,
       // $.function_declaration_statement,
     ),
@@ -42,8 +42,7 @@ module.exports = grammar({
     ),
 
     decorator_arguments: $ => seq(
-      // TODO
-      "(", ")",
+      "(", optional($.expression_list), ")",
     ),
 
     import_statement: $ => seq(
@@ -196,6 +195,12 @@ module.exports = grammar({
       "=",
       $._expression,
       ";",
+    ),
+
+    augment_decorator_statement: $ => seq(
+      "@@",
+      $._identifier_or_member_expression,
+      optional($.decorator_arguments),
     ),
 
     // TODO: Missing statements here
