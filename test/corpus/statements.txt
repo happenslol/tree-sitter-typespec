@@ -452,3 +452,31 @@ enum Foo {
           (decimal_literal)))
       (enum_member
         (plain_identifier)))))
+
+============================================
+Aliases
+============================================
+
+alias A = B;
+
+alias A<Foo> = B<C>;
+
+---
+
+(source_file
+  (alias_statement
+    (plain_identifier)
+    (reference_expression
+      (plain_identifier)))
+  (alias_statement
+    (plain_identifier)
+    (template_parameters
+      (template_parameter_list
+        (template_parameter
+          (plain_identifier))))
+    (reference_expression
+      (plain_identifier)
+      (template_arguments
+        (expression_list
+          (reference_expression
+            (plain_identifier)))))))

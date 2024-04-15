@@ -23,11 +23,11 @@ module.exports = grammar({
       $.scalar_statement,
       $.interface_statement,
       $.enum_statement,
+      $.alias_statement,
       ";",
 
       // TODO
       // $.operation_statement,
-      // $.alias_statement,
       // $.augment_decorator_statement,
       // $.decorator_declaration_statement,
       // $.function_declaration_statement,
@@ -187,6 +187,15 @@ module.exports = grammar({
     enum_member_value: $ => seq(
       ":",
       choice($._numeric_literal, $._string_literal)
+    ),
+
+    alias_statement: $ => seq(
+      "alias",
+      $._identifier,
+      optional($.template_parameters),
+      "=",
+      $._expression,
+      ";",
     ),
 
     // TODO: Missing statements here

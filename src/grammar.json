@@ -53,6 +53,10 @@
           "name": "enum_statement"
         },
         {
+          "type": "SYMBOL",
+          "name": "alias_statement"
+        },
+        {
           "type": "STRING",
           "value": ";"
         }
@@ -890,6 +894,43 @@
               "name": "_string_literal"
             }
           ]
+        }
+      ]
+    },
+    "alias_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "alias"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "template_parameters"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },
