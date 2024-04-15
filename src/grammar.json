@@ -69,6 +69,10 @@
           "name": "decorator_declaration_statement"
         },
         {
+          "type": "SYMBOL",
+          "name": "function_declaration_statement"
+        },
+        {
           "type": "STRING",
           "value": ";"
         }
@@ -1268,6 +1272,63 @@
           "name": "_expression"
         }
       ]
+    },
+    "function_declaration_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "function_modifiers"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "fn"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "function_parameter_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "function_modifiers": {
+      "type": "STRING",
+      "value": "extern"
     },
     "reference_expression_list": {
       "type": "SEQ",

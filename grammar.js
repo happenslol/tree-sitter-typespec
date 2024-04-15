@@ -27,10 +27,8 @@ module.exports = grammar({
       $.augment_decorator_statement,
       $.operation_statement,
       $.decorator_declaration_statement,
+      $.function_declaration_statement,
       ";",
-
-      // TODO
-      // $.function_declaration_statement,
     ),
 
     decorator_list: $ => repeat1($.decorator),
@@ -256,7 +254,16 @@ module.exports = grammar({
 
     type_annotation: $ => seq(":", $._expression),
 
-    // TODO: Missing statements here
+    function_declaration_statement: $ => seq(
+      optional($.function_modifiers),
+      "fn",
+      "(",
+      optional($.function_parameter_list),
+      ")",
+      optional($.type_annotation),
+    ),
+
+    function_modifiers: $ => "extern",
 
     reference_expression_list: $ => seq(
       $.reference_expression,

@@ -257,6 +257,11 @@
     }
   },
   {
+    "type": "decorator_modifiers",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "enum_body",
     "named": true,
     "fields": {},
@@ -449,6 +454,34 @@
         }
       ]
     }
+  },
+  {
+    "type": "function_declaration_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "function_modifiers",
+          "named": true
+        },
+        {
+          "type": "function_parameter_list",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_modifiers",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "function_parameter",
@@ -1015,6 +1048,10 @@
           "named": true
         },
         {
+          "type": "function_declaration_statement",
+          "named": true
+        },
+        {
           "type": "import_statement",
           "named": true
         },
@@ -1422,6 +1459,10 @@
         },
         {
           "type": "enum_statement",
+          "named": true
+        },
+        {
+          "type": "function_declaration_statement",
           "named": true
         },
         {
@@ -2024,10 +2065,6 @@
     "named": true
   },
   {
-    "type": "decorator_modifiers",
-    "named": true
-  },
-  {
     "type": "enum",
     "named": false
   },
@@ -2040,7 +2077,15 @@
     "named": false
   },
   {
+    "type": "extern",
+    "named": false
+  },
+  {
     "type": "false",
+    "named": false
+  },
+  {
+    "type": "fn",
     "named": false
   },
   {
