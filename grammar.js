@@ -26,10 +26,10 @@ module.exports = grammar({
       $.alias_statement,
       $.augment_decorator_statement,
       $.operation_statement,
+      $.decorator_declaration_statement,
       ";",
 
       // TODO
-      // $.decorator_declaration_statement,
       // $.function_declaration_statement,
     ),
 
@@ -234,6 +234,27 @@ module.exports = grammar({
     ),
 
     operation_signature_reference: $ => seq("is", $.reference_expression,),
+
+    decorator_declaration_statement: $ => seq(
+      optional($.decorator_modifiers),
+      "dec",
+      "(",
+      optional($.function_parameter_list),
+      ")",
+    ),
+
+    decorator_modifiers: $ => "extern",
+
+    function_parameter_list: $ => repeat1($.function_parameter),
+
+    function_parameter: $ => seq(
+      optional("..."),
+      $._identifier,
+      optional("?"),
+      optional($.type_annotation),
+    ),
+
+    type_annotation: $ => seq(":", $._expression),
 
     // TODO: Missing statements here
 
