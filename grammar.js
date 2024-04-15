@@ -21,12 +21,12 @@ module.exports = grammar({
       $.using_statement,
       $.model_statement,
       $.scalar_statement,
+      $.interface_statement,
+      $.enum_statement,
       ";",
 
       // TODO
-      // $.interface_statement,
       // $.operation_statement,
-      // $.enum_statement,
       // $.alias_statement,
       // $.augment_decorator_statement,
       // $.decorator_declaration_statement,
@@ -75,7 +75,10 @@ module.exports = grammar({
       optional($.template_parameters),
       choice(
         seq($.model_is_heritage, ";"),
-        seq(optional($._model_heritage), $.model_expression),
+        seq(
+          optional($._model_heritage),
+          $.model_expression
+        ),
       ),
     ),
 
@@ -90,6 +93,7 @@ module.exports = grammar({
     expression_list: $ => seq(
       $._expression,
       repeat(seq(",", $._expression)),
+      optional(","),
     ),
 
     _expression: $ => choice(
@@ -143,6 +147,55 @@ module.exports = grammar({
     ),
 
     scalar_extends: $ => seq("extends", $._expression),
+
+    interface_statement: $ => seq(
+      "interface",
+      $._identifier,
+      optional($.template_parameters),
+      optional($.interface_heritage),
+      "{",
+      // TODO
+      // optional($.interface_body),
+      "}",
+    ),
+
+    interface_heritage: $ => seq("extends", $.reference_expression_list),
+
+    enum_statement: $ => seq(
+      optional($.decorator_list),
+      "enum",
+      $._identifier,
+      "{",
+      optional($.enum_body),
+      "}",
+    ),
+
+    enum_body: $ => repeat1(choice(
+      $.enum_spread_member,
+      $.enum_member,
+    )),
+
+    enum_spread_member: $ => seq("...", $.reference_expression),
+
+    enum_member: $ => seq(
+      optional($.decorator_list),
+      choice($._identifier, $._string_literal),
+      optional($.enum_member_value),
+      optional(choice(",", ";")),
+    ),
+
+    enum_member_value: $ => seq(
+      ":",
+      choice($._numeric_literal, $._string_literal)
+    ),
+
+    // TODO: Missing statements here
+
+    reference_expression_list: $ => seq(
+      $.reference_expression,
+      repeat(seq(",", $.reference_expression)),
+      optional(","),
+    ),
 
     reference_expression: $ => seq(
       $._identifier_or_member_expression,

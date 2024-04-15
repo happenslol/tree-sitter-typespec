@@ -99,6 +99,133 @@
     }
   },
   {
+    "type": "enum_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_member",
+          "named": true
+        },
+        {
+          "type": "enum_spread_member",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_member",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "backticked_identifier",
+          "named": true
+        },
+        {
+          "type": "decorator_list",
+          "named": true
+        },
+        {
+          "type": "enum_member_value",
+          "named": true
+        },
+        {
+          "type": "plain_identifier",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tripe_quoted_string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_member_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tripe_quoted_string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_spread_member",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "reference_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "backticked_identifier",
+          "named": true
+        },
+        {
+          "type": "decorator_list",
+          "named": true
+        },
+        {
+          "type": "enum_body",
+          "named": true
+        },
+        {
+          "type": "plain_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expression_list",
     "named": true,
     "fields": {},
@@ -175,6 +302,48 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_heritage",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "reference_expression_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "backticked_identifier",
+          "named": true
+        },
+        {
+          "type": "interface_heritage",
+          "named": true
+        },
+        {
+          "type": "plain_identifier",
+          "named": true
+        },
+        {
+          "type": "template_parameters",
           "named": true
         }
       ]
@@ -568,7 +737,15 @@
           "named": true
         },
         {
+          "type": "enum_statement",
+          "named": true
+        },
+        {
           "type": "import_statement",
+          "named": true
+        },
+        {
+          "type": "interface_statement",
           "named": true
         },
         {
@@ -708,6 +885,21 @@
     }
   },
   {
+    "type": "reference_expression_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "reference_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "scalar_extends",
     "named": true,
     "fields": {},
@@ -810,7 +1002,15 @@
       "required": false,
       "types": [
         {
+          "type": "enum_statement",
+          "named": true
+        },
+        {
           "type": "import_statement",
+          "named": true
+        },
+        {
+          "type": "interface_statement",
           "named": true
         },
         {
@@ -1287,6 +1487,10 @@
     "named": true
   },
   {
+    "type": "enum",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
@@ -1304,6 +1508,10 @@
   },
   {
     "type": "import",
+    "named": false
+  },
+  {
+    "type": "interface",
     "named": false
   },
   {

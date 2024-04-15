@@ -407,3 +407,48 @@ scalar Foo extends string;
     (scalar_extends
       (reference_expression
         (plain_identifier)))))
+
+============================================
+Enums
+============================================
+
+enum Foo {
+  ...Bar
+  ...Bar.Baz
+
+  A;
+  @foo B: "test",
+  C: 123
+  D,
+}
+
+---
+
+(source_file
+  (enum_statement
+    (plain_identifier)
+    (enum_body
+      (enum_spread_member
+        (reference_expression
+          (plain_identifier)))
+      (enum_spread_member
+        (reference_expression
+          (member_expression
+            (plain_identifier)
+            (plain_identifier))))
+      (enum_member
+        (plain_identifier))
+      (enum_member
+        (decorator_list
+          (decorator
+            (plain_identifier)))
+        (plain_identifier)
+        (enum_member_value
+          (quoted_string_literal
+            (quoted_string_fragment))))
+      (enum_member
+        (plain_identifier)
+        (enum_member_value
+          (decimal_literal)))
+      (enum_member
+        (plain_identifier)))))
