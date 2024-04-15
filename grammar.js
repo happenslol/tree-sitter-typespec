@@ -20,9 +20,10 @@ module.exports = grammar({
       $.import_statement,
       $.using_statement,
       $.model_statement,
+      $.scalar_statement,
+      ";",
 
       // TODO
-      // $.scalar_statement,
       // $.interface_statement,
       // $.operation_statement,
       // $.enum_statement,
@@ -131,6 +132,17 @@ module.exports = grammar({
     ),
 
     model_spread_property: $ => seq("...", $.reference_expression),
+
+    scalar_statement: $ => seq(
+      optional($.decorator_list),
+      "scalar",
+      $._identifier,
+      optional($.template_parameters),
+      optional($.scalar_extends),
+      ";",
+    ),
+
+    scalar_extends: $ => seq("extends", $._expression),
 
     reference_expression: $ => seq(
       $._identifier_or_member_expression,

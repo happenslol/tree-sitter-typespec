@@ -379,3 +379,31 @@ model Foo {
         (model_property
           (plain_identifier)
           (decimal_literal))))))
+
+============================================
+Scalars
+============================================
+
+scalar Foo;
+
+@foo @bar scalar Foo;
+
+scalar Foo extends string;
+
+---
+
+(source_file
+  (scalar_statement
+    (plain_identifier))
+  (scalar_statement
+    (decorator_list
+      (decorator
+        (plain_identifier))
+      (decorator
+        (plain_identifier)))
+    (plain_identifier))
+  (scalar_statement
+    (plain_identifier)
+    (scalar_extends
+      (reference_expression
+        (plain_identifier)))))

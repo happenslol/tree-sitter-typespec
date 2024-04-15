@@ -588,6 +588,10 @@
           "named": true
         },
         {
+          "type": "scalar_statement",
+          "named": true
+        },
+        {
           "type": "using_statement",
           "named": true
         }
@@ -704,6 +708,100 @@
     }
   },
   {
+    "type": "scalar_extends",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array_expression",
+          "named": true
+        },
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "intersection_expression",
+          "named": true
+        },
+        {
+          "type": "model_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "reference_expression",
+          "named": true
+        },
+        {
+          "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "union_expression",
+          "named": true
+        },
+        {
+          "type": "value_of_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scalar_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "backticked_identifier",
+          "named": true
+        },
+        {
+          "type": "decorator_list",
+          "named": true
+        },
+        {
+          "type": "plain_identifier",
+          "named": true
+        },
+        {
+          "type": "scalar_extends",
+          "named": true
+        },
+        {
+          "type": "template_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -725,6 +823,10 @@
         },
         {
           "type": "namespace_statement",
+          "named": true
+        },
+        {
+          "type": "scalar_statement",
           "named": true
         },
         {
@@ -1227,6 +1329,10 @@
   {
     "type": "quoted_string_fragment",
     "named": true
+  },
+  {
+    "type": "scalar",
+    "named": false
   },
   {
     "type": "single_line_comment",
