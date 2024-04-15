@@ -113,10 +113,10 @@ module.exports = grammar({
       $.reference_expression,
       $.parenthesized_expression,
       $.model_expression,
-
-      // TODO
-      // $.tuple_expression,
+      $.tuple_expression,
     ),
+
+    tuple_expression: $ => seq("[", optional($.expression_list), "]"),
 
     model_expression: $ => seq("{", optional($.model_body), "}"),
 

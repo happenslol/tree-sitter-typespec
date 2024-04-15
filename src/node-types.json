@@ -64,6 +64,10 @@
           "named": true
         },
         {
+          "type": "tuple_expression",
+          "named": true
+        },
+        {
           "type": "union_expression",
           "named": true
         },
@@ -116,6 +120,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         }
       ]
@@ -390,6 +398,10 @@
           "named": true
         },
         {
+          "type": "tuple_expression",
+          "named": true
+        },
+        {
           "type": "union_expression",
           "named": true
         },
@@ -560,6 +572,10 @@
           "named": true
         },
         {
+          "type": "tuple_expression",
+          "named": true
+        },
+        {
           "type": "union_expression",
           "named": true
         },
@@ -672,6 +688,10 @@
           "named": true
         },
         {
+          "type": "tuple_expression",
+          "named": true
+        },
+        {
           "type": "union_expression",
           "named": true
         },
@@ -732,6 +752,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         },
         {
@@ -811,6 +835,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         },
         {
@@ -1002,6 +1030,10 @@
           "named": true
         },
         {
+          "type": "tuple_expression",
+          "named": true
+        },
+        {
           "type": "union_expression",
           "named": true
         },
@@ -1112,6 +1144,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         },
         {
@@ -1236,6 +1272,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         },
         {
@@ -1407,6 +1447,10 @@
           "named": true
         },
         {
+          "type": "tuple_expression",
+          "named": true
+        },
+        {
           "type": "union_expression",
           "named": true
         },
@@ -1467,6 +1511,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         },
         {
@@ -1557,6 +1605,21 @@
     }
   },
   {
+    "type": "tuple_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "expression_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "union_expression",
     "named": true,
     "fields": {},
@@ -1606,6 +1669,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         },
         {
@@ -1692,6 +1759,10 @@
         },
         {
           "type": "tripe_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         },
         {

@@ -137,6 +137,8 @@ model Foo is A[] & valueof B | (C & D.E.F);
 
 model Foo is A<B> & C<D> & E<F>;
 
+model Foo is [A, B, C];
+
 ---
 
 (source_file
@@ -204,7 +206,18 @@ model Foo is A<B> & C<D> & E<F>;
           (template_arguments
             (expression_list
               (reference_expression
-                (plain_identifier)))))))))
+                (plain_identifier))))))))
+  (model_statement
+    (plain_identifier)
+    (model_is_heritage
+      (tuple_expression
+        (expression_list
+          (reference_expression
+            (plain_identifier))
+          (reference_expression
+            (plain_identifier))
+          (reference_expression
+            (plain_identifier)))))))
 
 ============================================
 Template parameters
