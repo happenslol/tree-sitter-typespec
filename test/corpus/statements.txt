@@ -502,3 +502,59 @@ Decorator augments
           (quoted_string_fragment))
         (quoted_string_literal
           (quoted_string_fragment))))))
+
+============================================
+Interfaces and operations
+============================================
+
+op foo(): Foo;
+
+op foo(a: string, b: int32): Foo;
+
+interface Foo {
+  op bar(): Foo;
+  op baz(a: string, b: int32): Foo;
+}
+
+---
+
+(source_file
+  (operation_statement
+    (plain_identifier)
+    (operation_signature_declaration
+      (reference_expression
+        (plain_identifier))))
+  (operation_statement
+    (plain_identifier)
+    (operation_signature_declaration
+      (model_property
+        (plain_identifier)
+        (reference_expression
+          (plain_identifier)))
+      (model_property
+        (plain_identifier)
+        (reference_expression
+          (plain_identifier)))
+      (reference_expression
+        (plain_identifier))))
+  (interface_statement
+    (plain_identifier)
+    (interface_body
+      (interface_member
+        (plain_identifier)
+        (operation_signature_declaration
+          (reference_expression
+            (plain_identifier))))
+      (interface_member
+        (plain_identifier)
+        (operation_signature_declaration
+          (model_property
+            (plain_identifier)
+            (reference_expression
+              (plain_identifier)))
+          (model_property
+            (plain_identifier)
+            (reference_expression
+              (plain_identifier)))
+          (reference_expression
+            (plain_identifier)))))))

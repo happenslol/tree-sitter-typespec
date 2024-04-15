@@ -25,10 +25,10 @@ module.exports = grammar({
       $.enum_statement,
       $.alias_statement,
       $.augment_decorator_statement,
+      $.operation_statement,
       ";",
 
       // TODO
-      // $.operation_statement,
       // $.decorator_declaration_statement,
       // $.function_declaration_statement,
     ),
@@ -153,12 +153,20 @@ module.exports = grammar({
       optional($.template_parameters),
       optional($.interface_heritage),
       "{",
-      // TODO
-      // optional($.interface_body),
+      optional($.interface_body),
       "}",
     ),
 
     interface_heritage: $ => seq("extends", $.reference_expression_list),
+
+    interface_body: $ => repeat1($.interface_member),
+
+    interface_member: $ => seq(
+      optional("op"),
+      $._identifier,
+      $._operation_signature,
+      ";",
+    ),
 
     enum_statement: $ => seq(
       optional($.decorator_list),
@@ -202,6 +210,30 @@ module.exports = grammar({
       $._identifier_or_member_expression,
       optional($.decorator_arguments),
     ),
+
+    operation_statement: $ => seq(
+      optional($.decorator_list),
+      "op",
+      $._identifier,
+      optional($.template_parameters),
+      $._operation_signature,
+      ";",
+    ),
+
+    _operation_signature: $ => choice(
+      $.operation_signature_declaration,
+      $.operation_signature_reference,
+    ),
+
+    operation_signature_declaration: $ => seq(
+      "(",
+      repeat($.model_property),
+      ")",
+      ":",
+      $._expression,
+    ),
+
+    operation_signature_reference: $ => seq("is", $.reference_expression,),
 
     // TODO: Missing statements here
 
