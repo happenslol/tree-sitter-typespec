@@ -35,7 +35,7 @@ module.exports = grammar({
 
     decorator: $ => seq(
       "@",
-      $._identifier_or_member_expression,
+      field("name", $.identifier_or_member_expression),
       optional($.decorator_arguments)
     ),
 
@@ -51,14 +51,14 @@ module.exports = grammar({
 
     using_statement: $ => seq(
       "using",
-      $._identifier_or_member_expression,
+      field("module", $.identifier_or_member_expression),
       ";",
     ),
 
     namespace_statement: $ => seq(
       optional($.decorator_list),
       "namespace",
-      $._identifier_or_member_expression,
+      field("name", $.identifier_or_member_expression),
       choice(
         ";",
         seq("{", repeat($._statement), "}"),
@@ -68,7 +68,7 @@ module.exports = grammar({
     model_statement: $ => seq(
       optional($.decorator_list),
       "model",
-      $._identifier,
+      field("name", $.identifier),
       optional($.template_parameters),
       choice(
         seq($.model_is_heritage, ";"),
@@ -124,7 +124,7 @@ module.exports = grammar({
       $.model_spread_property,
       seq(
         optional($.decorator_list),
-        choice($._identifier, $._string_literal),
+        field("name", choice($.identifier, $._string_literal)),
         optional("?"),
         ":",
         $._expression,
@@ -137,7 +137,7 @@ module.exports = grammar({
     scalar_statement: $ => seq(
       optional($.decorator_list),
       "scalar",
-      $._identifier,
+      field("name", $.identifier),
       optional($.template_parameters),
       optional($.scalar_extends),
       ";",
@@ -147,7 +147,7 @@ module.exports = grammar({
 
     interface_statement: $ => seq(
       "interface",
-      $._identifier,
+      field("name", $.identifier),
       optional($.template_parameters),
       optional($.interface_heritage),
       "{",
@@ -161,7 +161,7 @@ module.exports = grammar({
 
     interface_member: $ => seq(
       optional("op"),
-      $._identifier,
+      $.identifier,
       $._operation_signature,
       ";",
     ),
@@ -169,7 +169,7 @@ module.exports = grammar({
     enum_statement: $ => seq(
       optional($.decorator_list),
       "enum",
-      $._identifier,
+      field("name", $.identifier),
       "{",
       optional($.enum_body),
       "}",
@@ -184,7 +184,7 @@ module.exports = grammar({
 
     enum_member: $ => seq(
       optional($.decorator_list),
-      choice($._identifier, $._string_literal),
+      field("name", choice($.identifier, $._string_literal)),
       optional($.enum_member_value),
       optional(choice(",", ";")),
     ),
@@ -196,7 +196,7 @@ module.exports = grammar({
 
     alias_statement: $ => seq(
       "alias",
-      $._identifier,
+      field("name", $.identifier),
       optional($.template_parameters),
       "=",
       $._expression,
@@ -205,14 +205,14 @@ module.exports = grammar({
 
     augment_decorator_statement: $ => seq(
       "@@",
-      $._identifier_or_member_expression,
+      field("name", $.identifier_or_member_expression),
       optional($.decorator_arguments),
     ),
 
     operation_statement: $ => seq(
       optional($.decorator_list),
       "op",
-      $._identifier,
+      field("name", $.identifier),
       optional($.template_parameters),
       $._operation_signature,
       ";",
@@ -236,6 +236,7 @@ module.exports = grammar({
     decorator_declaration_statement: $ => seq(
       optional($.decorator_modifiers),
       "dec",
+      field("name", $.identifier),
       "(",
       optional($.function_parameter_list),
       ")",
@@ -247,9 +248,10 @@ module.exports = grammar({
 
     function_parameter: $ => seq(
       optional("..."),
-      $._identifier,
+      field("name", $.identifier),
       optional("?"),
       optional($.type_annotation),
+      optional(","),
     ),
 
     type_annotation: $ => seq(":", $._expression),
@@ -272,7 +274,7 @@ module.exports = grammar({
     ),
 
     reference_expression: $ => seq(
-      $._identifier_or_member_expression,
+      $.identifier_or_member_expression,
       optional($.template_arguments),
     ),
 
@@ -288,23 +290,57 @@ module.exports = grammar({
     ),
 
     template_parameter: $ => seq(
-      $._identifier,
-      optional($.template_constraint),
-      optional($.template_default),
+      field("name", $.identifier),
+      field("constraint", optional($.template_constraint)),
+      field("default", optional($.template_default)),
     ),
 
     template_constraint: $ => seq("extends", $._expression),
 
     template_default: $ => seq("=", $._expression),
 
-    _identifier_or_member_expression: $ => choice(
-      $._identifier,
+    identifier_or_member_expression: $ => choice(
+      $.identifier,
       $.member_expression,
     ),
 
-    _identifier: $ => choice(
+    identifier: $ => choice(
+      $.builtin_type,
       $.plain_identifier,
       $.backticked_identifier,
+    ),
+
+    builtin_type: $ => choice(
+      "numeric",
+      "integer",
+      "float",
+      "int64",
+      "int32",
+      "int16",
+      "int",
+      "safeint"	,
+      "uint6",
+      "uint32",
+      "uint16",
+      "uint8",
+      "float32",
+      "float64",
+      "decimal",
+      "decimal128",
+      "plainDate",
+      "plainTime",
+      "utcDateTime",
+      "offsetDateTime",
+      "duration",
+      "bytes",
+      "string",
+      "boolean",
+      "null",
+      "Array",
+      "Record",
+      "unknown",
+      "void",
+      "never",
     ),
 
     plain_identifier: $ => /[a-zA-Z_][a-zA-Z0-9_$]*/,
@@ -321,8 +357,8 @@ module.exports = grammar({
     backticked_identifier_fragment: $ => token.immediate(/[^`\\]+/),
 
     member_expression: $ => seq(
-      $._identifier,
-      repeat1(seq(".", $._identifier)),
+      field("base", $.identifier),
+      repeat1(seq(".", field("member", $.identifier))),
     ),
 
     _literal: $ => choice(
@@ -355,7 +391,7 @@ module.exports = grammar({
 
     _string_literal: $ => choice(
       $.quoted_string_literal,
-      $.tripe_quoted_string_literal,
+      $.triple_quoted_string_literal,
     ),
 
     quoted_string_literal: $ => seq(
@@ -367,7 +403,7 @@ module.exports = grammar({
       '"',
     ),
 
-    tripe_quoted_string_literal: $ => seq(
+    triple_quoted_string_literal: $ => seq(
       '"""',
       repeat(choice(
         $.triple_quoted_string_fragment,
