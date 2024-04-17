@@ -284,7 +284,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "enum_member",
@@ -398,7 +398,7 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "decorator_list",
@@ -614,7 +614,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "interface_member",
@@ -678,7 +678,7 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "interface_body",
@@ -1104,20 +1104,9 @@
     }
   },
   {
-    "type": "namespace_statement",
+    "type": "namespace_body",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier_or_member_expression",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,
@@ -1132,10 +1121,6 @@
         },
         {
           "type": "decorator_declaration_statement",
-          "named": true
-        },
-        {
-          "type": "decorator_list",
           "named": true
         },
         {
@@ -1172,6 +1157,36 @@
         },
         {
           "type": "using_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "namespace_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier_or_member_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "decorator_list",
+          "named": true
+        },
+        {
+          "type": "namespace_body",
           "named": true
         }
       ]

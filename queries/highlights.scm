@@ -40,6 +40,7 @@
   "|"
   "&"
   "="
+  "..."
 ] @operator
 
 "?" @punctuation.special

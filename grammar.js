@@ -61,9 +61,11 @@ module.exports = grammar({
       field("name", $.identifier_or_member_expression),
       choice(
         ";",
-        seq("{", repeat($._statement), "}"),
+        $.namespace_body,
       ),
     ),
+
+    namespace_body: $ => seq("{", repeat($._statement), "}"),
 
     model_statement: $ => seq(
       optional($.decorator_list),
@@ -150,14 +152,12 @@ module.exports = grammar({
       field("name", $.identifier),
       optional($.template_parameters),
       optional($.interface_heritage),
-      "{",
-      optional($.interface_body),
-      "}",
+      $.interface_body,
     ),
 
     interface_heritage: $ => seq("extends", $.reference_expression_list),
 
-    interface_body: $ => repeat1($.interface_member),
+    interface_body: $ => seq("{", repeat($.interface_member), "}"),
 
     interface_member: $ => seq(
       optional("op"),
@@ -170,15 +170,17 @@ module.exports = grammar({
       optional($.decorator_list),
       "enum",
       field("name", $.identifier),
-      "{",
-      optional($.enum_body),
-      "}",
+      $.enum_body,
     ),
 
-    enum_body: $ => repeat1(choice(
-      $.enum_spread_member,
-      $.enum_member,
-    )),
+    enum_body: $ => seq(
+      "{", 
+      repeat(choice(
+        $.enum_spread_member,
+        $.enum_member,
+      )),
+      "}"
+    ),
 
     enum_spread_member: $ => seq("...", $.reference_expression),
 

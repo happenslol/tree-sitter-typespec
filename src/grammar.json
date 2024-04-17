@@ -212,26 +212,30 @@
               "value": ";"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "{"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_statement"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": "}"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "namespace_body"
             }
           ]
+        }
+      ]
+    },
+    "namespace_body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_statement"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
         }
       ]
     },
@@ -801,24 +805,8 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": "{"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "interface_body"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "}"
+          "type": "SYMBOL",
+          "name": "interface_body"
         }
       ]
     },
@@ -836,11 +824,24 @@
       ]
     },
     "interface_body": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "interface_member"
-      }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "interface_member"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
     },
     "interface_member": {
       "type": "SEQ",
@@ -899,42 +900,39 @@
           }
         },
         {
+          "type": "SYMBOL",
+          "name": "enum_body"
+        }
+      ]
+    },
+    "enum_body": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "STRING",
           "value": "{"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "enum_body"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "enum_spread_member"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "enum_member"
+              }
+            ]
+          }
         },
         {
           "type": "STRING",
           "value": "}"
         }
       ]
-    },
-    "enum_body": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "enum_spread_member"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "enum_member"
-          }
-        ]
-      }
     },
     "enum_spread_member": {
       "type": "SEQ",
