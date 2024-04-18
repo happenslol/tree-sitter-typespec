@@ -67,9 +67,9 @@
 
 (builtin_type) @type.builtin
 
-"@" @attribute
-
-(decorator name: (identifier_or_member_expression) @attribute)
+(decorator
+  "@" @attribute
+  name: (identifier_or_member_expression) @attribute)
 (augment_decorator_statement name: (identifier_or_member_expression) @attribute)
 
 (using_statement module: (identifier_or_member_expression) @module)
