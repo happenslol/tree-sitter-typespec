@@ -1193,6 +1193,21 @@
     }
   },
   {
+    "type": "operation_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "model_property",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "operation_signature_declaration",
     "named": true,
     "fields": {},
@@ -1229,7 +1244,7 @@
           "named": true
         },
         {
-          "type": "model_property",
+          "type": "operation_arguments",
           "named": true
         },
         {

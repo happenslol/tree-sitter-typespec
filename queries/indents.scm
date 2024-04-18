@@ -6,6 +6,7 @@
   (enum_body)
   (template_arguments)
   (template_parameters)
+  (operation_arguments)
 ] @indent.begin
 
 [

@@ -98,4 +98,4 @@
 
 (function_parameter name: (identifier) @variable.parameter)
 
-(operation_signature_declaration (model_property name: (identifier) @variable.parameter))
+(operation_arguments (model_property name: (identifier) @variable.parameter))

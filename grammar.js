@@ -226,11 +226,15 @@ module.exports = grammar({
     ),
 
     operation_signature_declaration: $ => seq(
+      $.operation_arguments,
+      ":",
+      $._expression,
+    ),
+
+    operation_arguments: $ => seq(
       "(",
       repeat($.model_property),
       ")",
-      ":",
-      $._expression,
     ),
 
     operation_signature_reference: $ => seq("is", $.reference_expression,),
