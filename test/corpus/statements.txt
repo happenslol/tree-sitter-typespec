@@ -45,27 +45,47 @@ namespace Foo {
 
 (source_file
   (namespace_statement
-    (plain_identifier))
+    (identifier_or_member_expression
+      (identifier
+        (plain_identifier))))
   (namespace_statement
-    (member_expression
-      (plain_identifier)
-      (plain_identifier)
-      (plain_identifier)))
+    (identifier_or_member_expression
+      (member_expression
+        (identifier
+          (plain_identifier))
+        (identifier
+          (plain_identifier))
+        (identifier
+          (plain_identifier)))))
   (namespace_statement
-    (backticked_identifier
-      (backticked_identifier_fragment)
-      (escape_sequence)
-      (backticked_identifier_fragment)
-      (escape_sequence)
-      (backticked_identifier_fragment)))
+    (identifier_or_member_expression
+      (identifier
+        (backticked_identifier
+          (backticked_identifier_fragment)
+          (escape_sequence)
+          (backticked_identifier_fragment)
+          (escape_sequence)
+          (backticked_identifier_fragment)))))
   (namespace_statement
-    (plain_identifier))
+    (identifier_or_member_expression
+      (identifier
+        (plain_identifier)))
+    (namespace_body))
   (namespace_statement
-    (plain_identifier)
-    (namespace_statement
-      (plain_identifier)
+    (identifier_or_member_expression
+      (identifier
+        (plain_identifier)))
+    (namespace_body
       (namespace_statement
-        (plain_identifier)))))
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier)))
+        (namespace_body
+          (namespace_statement
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))
+            (namespace_body)))))))
 
 ============================================
 Imports and using statements
@@ -87,11 +107,16 @@ using Foo.Bar;
     (quoted_string_literal
       (quoted_string_fragment)))
   (using_statement
-    (plain_identifier))
+    (identifier_or_member_expression
+      (identifier
+        (plain_identifier))))
   (using_statement
-    (member_expression
-      (plain_identifier)
-      (plain_identifier))))
+    (identifier_or_member_expression
+      (member_expression
+        (identifier
+          (plain_identifier))
+        (identifier
+          (plain_identifier))))))
 
 ============================================
 Model heritage
@@ -109,29 +134,43 @@ model Foo extends A.B.C {}
 
 (source_file
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_expression))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (reference_expression
-        (plain_identifier))))
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier))))))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (reference_expression
-        (member_expression
-          (plain_identifier)
-          (plain_identifier)
-          (plain_identifier)))))
+        (identifier_or_member_expression
+          (member_expression
+            (identifier
+              (plain_identifier))
+            (identifier
+              (plain_identifier))
+            (identifier
+              (plain_identifier)))))))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_extends_heritage
       (reference_expression
-        (member_expression
-          (plain_identifier)
-          (plain_identifier)
-          (plain_identifier))))
+        (identifier_or_member_expression
+          (member_expression
+            (identifier
+              (plain_identifier))
+            (identifier
+              (plain_identifier))
+            (identifier
+              (plain_identifier))))))
     (model_expression)))
 
 ============================================
@@ -152,81 +191,126 @@ model Foo is [A, B, C];
 
 (source_file
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (union_expression
         (union_expression
           (reference_expression
-            (plain_identifier))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))
           (reference_expression
-            (plain_identifier)))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))
         (reference_expression
-          (plain_identifier)))))
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (intersection_expression
         (intersection_expression
           (reference_expression
-            (plain_identifier))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))
           (reference_expression
-            (plain_identifier)))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))
         (reference_expression
-          (plain_identifier)))))
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (union_expression
         (intersection_expression
           (array_expression
             (reference_expression
-              (plain_identifier)))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier)))))
           (value_of_expression
             (reference_expression
-              (plain_identifier))))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
         (parenthesized_expression
           (intersection_expression
             (reference_expression
-              (plain_identifier))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))
             (reference_expression
-              (member_expression
-                (plain_identifier)
-                (plain_identifier)
-                (plain_identifier))))))))
+              (identifier_or_member_expression
+                (member_expression
+                  (identifier
+                    (plain_identifier))
+                  (identifier
+                    (plain_identifier))
+                  (identifier
+                    (plain_identifier))))))))))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (intersection_expression
         (intersection_expression
           (reference_expression
-            (plain_identifier)
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))
             (template_arguments
               (expression_list
                 (reference_expression
-                  (plain_identifier)))))
+                  (identifier_or_member_expression
+                    (identifier
+                      (plain_identifier)))))))
           (reference_expression
-            (plain_identifier)
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))
             (template_arguments
               (expression_list
                 (reference_expression
-                  (plain_identifier))))))
+                  (identifier_or_member_expression
+                    (identifier
+                      (plain_identifier))))))))
         (reference_expression
-          (plain_identifier)
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))
           (template_arguments
             (expression_list
               (reference_expression
-                (plain_identifier))))))))
+                (identifier_or_member_expression
+                  (identifier
+                    (plain_identifier))))))))))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (tuple_expression
         (expression_list
           (reference_expression
-            (plain_identifier))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))
           (reference_expression
-            (plain_identifier))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))
           (reference_expression
-            (plain_identifier)))))))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))))))
 
 ============================================
 Template parameters
@@ -248,73 +332,103 @@ model Foo is A<T>;
 
 (source_file
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (template_parameters
       (template_parameter_list
         (template_parameter
-          (plain_identifier))))
+          (identifier
+            (plain_identifier)))))
     (model_expression))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (template_parameters
       (template_parameter_list
         (template_parameter
-          (plain_identifier))
+          (identifier
+            (plain_identifier)))
         (template_parameter
-          (plain_identifier))))
+          (identifier
+            (plain_identifier)))))
     (model_expression))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (template_parameters
       (template_parameter_list
         (template_parameter
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (template_default
             (reference_expression
-              (plain_identifier))))
+              (identifier_or_member_expression
+                (identifier
+                  (builtin_type))))))
         (template_parameter
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (template_default
             (reference_expression
-              (plain_identifier))))))
+              (identifier_or_member_expression
+                (identifier
+                  (builtin_type))))))))
     (model_expression))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (template_parameters
       (template_parameter_list
         (template_parameter
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (template_constraint
             (reference_expression
-              (plain_identifier))))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
         (template_parameter
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (template_constraint
             (reference_expression
-              (plain_identifier))))))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))))
     (model_expression))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (template_parameters
       (template_parameter_list
         (template_parameter
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (template_constraint
             (reference_expression
-              (plain_identifier)))
+              (identifier_or_member_expression
+                (identifier
+                  (builtin_type)))))
           (template_default
             (reference_expression
-              (plain_identifier))))))
+              (identifier_or_member_expression
+                (identifier
+                  (builtin_type))))))))
     (model_expression))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_is_heritage
       (reference_expression
-        (plain_identifier)
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier)))
         (template_arguments
           (expression_list
             (reference_expression
-              (plain_identifier))))))))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))))))
 
 ============================================
 Models
@@ -342,64 +456,97 @@ model Foo {
 
 (source_file
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_expression
       (model_body
         (model_property
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (reference_expression
-            (plain_identifier)))
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type)))))
         (model_property
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (reference_expression
-            (plain_identifier)))
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type)))))
         (model_property
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (reference_expression
-            (plain_identifier))))))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))))))
   (model_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (model_expression
       (model_body
         (model_property
           (model_spread_property
             (reference_expression
-              (plain_identifier))))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
         (model_property
           (model_spread_property
             (reference_expression
-              (member_expression
-                (plain_identifier)
-                (plain_identifier)))))
+              (identifier_or_member_expression
+                (member_expression
+                  (identifier
+                    (plain_identifier))
+                  (identifier
+                    (plain_identifier)))))))
         (model_property
           (decorator_list
             (decorator
-              (plain_identifier)))
-          (plain_identifier)
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier)))))
+          (identifier
+            (plain_identifier))
           (reference_expression
-            (plain_identifier)))
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type)))))
         (model_property
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (reference_expression
-            (plain_identifier)))
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type)))))
         (model_property
           (quoted_string_literal
             (quoted_string_fragment))
           (reference_expression
-            (plain_identifier)))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))
         (model_property
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (union_expression
             (reference_expression
-              (plain_identifier))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))
             (reference_expression
-              (plain_identifier))))
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
         (model_property
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (quoted_string_literal
             (quoted_string_fragment)))
         (model_property
-          (plain_identifier)
+          (identifier
+            (plain_identifier))
           (decimal_literal))))))
 
 ============================================
@@ -416,19 +563,28 @@ scalar Foo extends string;
 
 (source_file
   (scalar_statement
-    (plain_identifier))
+    (identifier
+      (plain_identifier)))
   (scalar_statement
     (decorator_list
       (decorator
-        (plain_identifier))
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier))))
       (decorator
-        (plain_identifier)))
-    (plain_identifier))
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier)))))
+    (identifier
+      (plain_identifier)))
   (scalar_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (scalar_extends
       (reference_expression
-        (plain_identifier)))))
+        (identifier_or_member_expression
+          (identifier
+            (builtin_type)))))))
 
 ============================================
 Enums
@@ -448,32 +604,44 @@ enum Foo {
 
 (source_file
   (enum_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (enum_body
       (enum_spread_member
         (reference_expression
-          (plain_identifier)))
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
       (enum_spread_member
         (reference_expression
-          (member_expression
-            (plain_identifier)
-            (plain_identifier))))
+          (identifier_or_member_expression
+            (member_expression
+              (identifier
+                (plain_identifier))
+              (identifier
+                (plain_identifier))))))
       (enum_member
-        (plain_identifier))
+        (identifier
+          (plain_identifier)))
       (enum_member
         (decorator_list
           (decorator
-            (plain_identifier)))
-        (plain_identifier)
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))
+        (identifier
+          (plain_identifier))
         (enum_member_value
           (quoted_string_literal
             (quoted_string_fragment))))
       (enum_member
-        (plain_identifier)
+        (identifier
+          (plain_identifier))
         (enum_member_value
           (decimal_literal)))
       (enum_member
-        (plain_identifier)))))
+        (identifier
+          (plain_identifier))))))
 
 ============================================
 Aliases
@@ -487,21 +655,30 @@ alias A<Foo> = B<C>;
 
 (source_file
   (alias_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (reference_expression
-      (plain_identifier)))
+      (identifier_or_member_expression
+        (identifier
+          (plain_identifier)))))
   (alias_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (template_parameters
       (template_parameter_list
         (template_parameter
-          (plain_identifier))))
+          (identifier
+            (plain_identifier)))))
     (reference_expression
-      (plain_identifier)
+      (identifier_or_member_expression
+        (identifier
+          (plain_identifier)))
       (template_arguments
         (expression_list
           (reference_expression
-            (plain_identifier)))))))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))))))
 
 ============================================
 Decorator augments
@@ -515,9 +692,13 @@ Decorator augments
 
 (source_file
   (augment_decorator_statement
-    (plain_identifier))
+    (identifier_or_member_expression
+      (identifier
+        (plain_identifier))))
   (augment_decorator_statement
-    (plain_identifier)
+    (identifier_or_member_expression
+      (identifier
+        (plain_identifier)))
     (decorator_arguments
       (expression_list
         (quoted_string_literal
@@ -542,41 +723,70 @@ interface Foo {
 
 (source_file
   (operation_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (operation_signature_declaration
+      (operation_arguments)
       (reference_expression
-        (plain_identifier))))
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier))))))
   (operation_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (operation_signature_declaration
-      (model_property
-        (plain_identifier)
-        (reference_expression
-          (plain_identifier)))
-      (model_property
-        (plain_identifier)
-        (reference_expression
-          (plain_identifier)))
+      (operation_arguments
+        (model_property
+          (identifier
+            (plain_identifier))
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type)))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type))))))
       (reference_expression
-        (plain_identifier))))
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier))))))
   (interface_statement
-    (plain_identifier)
+    (identifier
+      (plain_identifier))
     (interface_body
       (interface_member
-        (plain_identifier)
+        (identifier
+          (plain_identifier))
         (operation_signature_declaration
+          (operation_arguments)
           (reference_expression
-            (plain_identifier))))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))))
       (interface_member
-        (plain_identifier)
+        (identifier
+          (plain_identifier))
         (operation_signature_declaration
-          (model_property
-            (plain_identifier)
-            (reference_expression
-              (plain_identifier)))
-          (model_property
-            (plain_identifier)
-            (reference_expression
-              (plain_identifier)))
+          (operation_arguments
+            (model_property
+              (identifier
+                (plain_identifier))
+              (reference_expression
+                (identifier_or_member_expression
+                  (identifier
+                    (builtin_type)))))
+            (model_property
+              (identifier
+                (plain_identifier))
+              (reference_expression
+                (identifier_or_member_expression
+                  (identifier
+                    (builtin_type))))))
           (reference_expression
-            (plain_identifier)))))))
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))))))
