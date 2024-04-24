@@ -160,6 +160,7 @@ module.exports = grammar({
     interface_body: $ => seq("{", repeat($.interface_member), "}"),
 
     interface_member: $ => seq(
+      optional($.decorator_list),
       optional("op"),
       $.identifier,
       $._operation_signature,
