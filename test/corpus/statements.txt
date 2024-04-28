@@ -1041,3 +1041,73 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
             (identifier_or_member_expression
               (identifier
                 (plain_identifier)))))))))
+
+============================================
+Union statements
+============================================
+
+union Foo {
+  a;
+  b: c;
+  d: e | f;
+}
+
+union Foo {
+  @foo("bar") (a | b);
+};
+
+---
+
+(source_file
+  (union_statement
+    (identifier
+      (plain_identifier))
+    (union_body
+      (union_variant
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
+      (union_variant
+        (identifier
+          (plain_identifier))
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
+      (union_variant
+        (identifier
+          (plain_identifier))
+        (union_expression
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))))))
+  (union_statement
+    (identifier
+      (plain_identifier))
+    (union_body
+      (union_variant
+        (decorator_list
+          (decorator
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))
+            (decorator_arguments
+              (expression_list
+                (quoted_string_literal
+                  (quoted_string_fragment))))))
+        (parenthesized_expression
+          (union_expression
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))))))

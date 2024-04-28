@@ -20,6 +20,7 @@ module.exports = grammar({
       $.import_statement,
       $.using_statement,
       $.model_statement,
+      $.union_statement,
       $.scalar_statement,
       $.interface_statement,
       $.enum_statement,
@@ -33,11 +34,11 @@ module.exports = grammar({
 
     decorator_list: $ => repeat1($.decorator),
 
-    decorator: $ => seq(
+    decorator: $ => prec.right(seq(
       "@",
       field("name", $.identifier_or_member_expression),
       optional($.decorator_arguments)
-    ),
+    )),
 
     decorator_arguments: $ => seq(
       "(", optional($.expression_list), ")",
@@ -135,6 +136,29 @@ module.exports = grammar({
     ),
 
     model_spread_property: $ => seq("...", $.reference_expression),
+
+    union_statement: $ => seq(
+      optional($.decorator_list),
+      "union",
+      field("name", $.identifier),
+      optional($.template_parameters),
+      $.union_body,
+    ),
+
+    union_body: $ => seq("{", repeat($.union_variant), "}"),
+
+    union_variant: $ => seq(
+      optional($.decorator_list),
+      optional(seq(
+        choice(
+          field("name", $.identifier),
+          $._string_literal,
+        ),
+        ":",
+      )),
+      $._expression,
+      optional(choice(",", ";")),
+    ),
 
     scalar_statement: $ => seq(
       optional($.decorator_list),

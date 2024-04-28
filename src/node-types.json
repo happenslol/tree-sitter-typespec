@@ -1160,6 +1160,10 @@
           "named": true
         },
         {
+          "type": "union_statement",
+          "named": true
+        },
+        {
           "type": "using_statement",
           "named": true
         }
@@ -1617,6 +1621,10 @@
           "named": true
         },
         {
+          "type": "union_statement",
+          "named": true
+        },
+        {
           "type": "using_statement",
           "named": true
         }
@@ -1940,6 +1948,21 @@
     }
   },
   {
+    "type": "union_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "union_variant",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "union_expression",
     "named": true,
     "fields": {},
@@ -1961,6 +1984,122 @@
         },
         {
           "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "intersection_expression",
+          "named": true
+        },
+        {
+          "type": "model_expression",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "reference_expression",
+          "named": true
+        },
+        {
+          "type": "triple_quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
+          "named": true
+        },
+        {
+          "type": "union_expression",
+          "named": true
+        },
+        {
+          "type": "value_of_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "decorator_list",
+          "named": true
+        },
+        {
+          "type": "template_parameters",
+          "named": true
+        },
+        {
+          "type": "union_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_variant",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_expression",
+          "named": true
+        },
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "decorator_list",
           "named": true
         },
         {
@@ -2371,6 +2510,10 @@
   },
   {
     "type": "uint8",
+    "named": false
+  },
+  {
+    "type": "union",
     "named": false
   },
   {

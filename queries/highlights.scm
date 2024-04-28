@@ -16,6 +16,7 @@
   "dec"
   "fn"
   "extern"
+  "union"
 ] @keyword
 
 [
@@ -79,6 +80,10 @@
 (model_statement name: (identifier) @type)
 
 (model_property name: (identifier) @property)
+
+(union_statement name: (identifier) @type)
+
+(union_variant name: (identifier) @property)
 
 (scalar_statement name: (identifier) @type)
 
