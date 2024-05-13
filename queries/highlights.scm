@@ -71,36 +71,55 @@
 (decorator
   "@" @attribute
   name: (identifier_or_member_expression) @attribute)
-(augment_decorator_statement name: (identifier_or_member_expression) @attribute)
 
-(using_statement module: (identifier_or_member_expression) @module)
+(augment_decorator_statement
+  name: (identifier_or_member_expression) @attribute)
 
-(namespace_statement name: (identifier_or_member_expression) @module)
+(using_statement
+  module: (identifier_or_member_expression) @module)
 
-(model_statement name: (identifier) @type)
+(namespace_statement
+  name: (identifier_or_member_expression) @module)
 
-(model_property name: (identifier) @property)
+(model_statement
+  name: (identifier) @type)
 
-(union_statement name: (identifier) @type)
+(model_property
+  name: (identifier) @property)
 
-(union_variant name: (identifier) @property)
+(union_statement
+  name: (identifier) @type)
 
-(scalar_statement name: (identifier) @type)
+(union_variant
+  name: (identifier) @property)
 
-(interface_statement name: (identifier) @type)
+(scalar_statement
+  name: (identifier) @type)
 
-(enum_statement name: (identifier) @type)
+(interface_statement
+  name: (identifier) @type)
 
-(enum_member name: (identifier) @constant)
+(enum_statement
+  name: (identifier) @type)
 
-(operation_statement name: (identifier) @function)
+(enum_member
+  name: (identifier) @constant)
 
-(template_parameter name: (identifier) @type)
+(operation_statement
+  name: (identifier) @function)
 
-(alias_statement name: (identifier) @type)
+(template_parameter
+  name: (identifier) @type)
 
-(decorator_declaration_statement name: (identifier) @attribute)
+(alias_statement
+  name: (identifier) @type)
 
-(function_parameter name: (identifier) @variable.parameter)
+(decorator_declaration_statement
+  name: (identifier) @attribute)
 
-(operation_arguments (model_property name: (identifier) @variable.parameter))
+(function_parameter
+  name: (identifier) @variable.parameter)
+
+(operation_arguments
+  (model_property
+    name: (identifier) @variable.parameter))
