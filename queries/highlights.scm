@@ -1,23 +1,33 @@
 (identifier_or_member_expression) @type
 
 [
-  "import"
-  "using"
-  "namespace"
-  "model"
   "is"
   "extends"
   "valueof"
+] @keyword.operator
+
+[
+  "namespace"
+  "model"
   "scalar"
   "interface"
-  "op"
   "enum"
-  "alias"
-  "dec"
-  "fn"
-  "extern"
   "union"
-] @keyword
+  "alias"
+] @keyword.type
+
+[
+  "op"
+  "fn"
+  "dec"
+] @keyword.function
+
+"extern" @keyword.modifier
+
+[
+  "import"
+  "using"
+] @keyword.import
 
 [
   "("
@@ -49,7 +59,7 @@
 [
   (single_line_comment)
   (multi_line_comment)
-] @comment
+] @comment @spell
 
 [
   (quoted_string_literal)
@@ -85,13 +95,13 @@
   name: (identifier) @type)
 
 (model_property
-  name: (identifier) @property)
+  name: (identifier) @variable.member)
 
 (union_statement
   name: (identifier) @type)
 
 (union_variant
-  name: (identifier) @property)
+  name: (identifier) @variable.member)
 
 (scalar_statement
   name: (identifier) @type)
