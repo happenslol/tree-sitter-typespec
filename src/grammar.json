@@ -1538,6 +1538,14 @@
           "value": "fn"
         },
         {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
           "type": "SYMBOL",
           "name": "function_parameter_list"
         },

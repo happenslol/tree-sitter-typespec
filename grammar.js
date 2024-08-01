@@ -292,6 +292,7 @@ module.exports = grammar({
     function_declaration_statement: $ => seq(
       optional($.function_modifiers),
       "fn",
+      field("name", $.identifier),
       $.function_parameter_list,
       optional($.type_annotation),
     ),
