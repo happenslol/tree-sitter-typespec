@@ -792,6 +792,59 @@ interface Foo {
               (plain_identifier)))))))))
 
 ============================================
+Functions
+============================================
+
+extern fn foo(): void;
+
+extern fn foo(a: string, b: int32): void | Error;
+
+---
+
+(source_file
+  (function_declaration_statement
+    (function_modifiers)
+    (identifier
+      (plain_identifier))
+    (function_parameter_list)
+    (type_annotation
+      (reference_expression
+        (identifier_or_member_expression
+          (identifier
+            (builtin_type))))))
+  (function_declaration_statement
+    (function_modifiers)
+    (identifier
+      (plain_identifier))
+    (function_parameter_list
+      (function_parameter
+        (identifier
+          (plain_identifier))
+        (type_annotation
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type))))))
+      (function_parameter
+        (identifier
+          (plain_identifier))
+        (type_annotation
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type)))))))
+    (type_annotation
+      (union_expression
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (builtin_type))))
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier))))))))
+
+============================================
 Playground Example: API versioning
 ============================================
 

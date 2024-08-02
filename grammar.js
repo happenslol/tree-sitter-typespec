@@ -268,14 +268,16 @@ module.exports = grammar({
       optional($.decorator_modifiers),
       "dec",
       field("name", $.identifier),
-      "(",
-      optional($.function_parameter_list),
-      ")",
+      $.function_parameter_list,
     ),
 
     decorator_modifiers: $ => "extern",
 
-    function_parameter_list: $ => repeat1($.function_parameter),
+    function_parameter_list: $ => seq(
+      "(",
+      optional(repeat1($.function_parameter)),
+      ")",
+    ),
 
     function_parameter: $ => seq(
       optional("..."),
@@ -290,9 +292,8 @@ module.exports = grammar({
     function_declaration_statement: $ => seq(
       optional($.function_modifiers),
       "fn",
-      "(",
-      optional($.function_parameter_list),
-      ")",
+      field("name", $.identifier),
+      $.function_parameter_list,
       optional($.type_annotation),
     ),
 
