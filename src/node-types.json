@@ -696,6 +696,10 @@
       "required": true,
       "types": [
         {
+          "type": "decorator_list",
+          "named": true
+        },
+        {
           "type": "interface_body",
           "named": true
         },
