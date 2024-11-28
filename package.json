@@ -4,15 +4,11 @@
   "description": "typespec grammar for tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
-  "tree-sitter": [
-    {
-      "scope": "source.typespec",
-      "file-types": [
-        "typespec",
-        "tsp"
-      ]
-    }
-  ],
+  "scripts": {
+    "test": "tree-sitter test",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip"
+  },
   "keywords": [
     "parsing",
     "incremental"
@@ -40,10 +36,5 @@
   "devDependencies": {
     "tree-sitter-cli": "^0.20.8",
     "prebuildify": "^6.0.0"
-  },
-  "scripts": {
-    "test": "tree-sitter test",
-    "install": "node-gyp-build",
-    "prebuildify": "prebuildify --napi --strip"
   }
 }
