@@ -172,6 +172,7 @@ module.exports = grammar({
     scalar_extends: $ => seq("extends", $._expression),
 
     interface_statement: $ => seq(
+      optional($.decorator_list),
       "interface",
       field("name", $.identifier),
       optional($.template_parameters),
