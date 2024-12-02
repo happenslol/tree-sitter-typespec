@@ -82,6 +82,40 @@
     }
   },
   {
+    "type": "annotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "decorator",
+          "named": true
+        },
+        {
+          "type": "directive",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "annotation_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "array_expression",
     "named": true,
     "fields": {},
@@ -259,24 +293,39 @@
     }
   },
   {
-    "type": "decorator_list",
+    "type": "decorator_modifiers",
     "named": true,
-    "fields": {},
+    "fields": {}
+  },
+  {
+    "type": "directive",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier_or_member_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "decorator",
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "triple_quoted_string_literal",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "decorator_modifiers",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "enum_body",
@@ -325,7 +374,7 @@
       "required": false,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -401,7 +450,7 @@
       "required": true,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -658,7 +707,7 @@
       "required": true,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -696,7 +745,7 @@
       "required": true,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -999,6 +1048,10 @@
       "required": true,
       "types": [
         {
+          "type": "annotation_list",
+          "named": true
+        },
+        {
           "type": "array_expression",
           "named": true
         },
@@ -1012,10 +1065,6 @@
         },
         {
           "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "decorator_list",
           "named": true
         },
         {
@@ -1100,7 +1149,7 @@
       "required": true,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -1205,7 +1254,7 @@
       "required": false,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -1336,7 +1385,7 @@
       "required": true,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -1561,7 +1610,7 @@
       "required": false,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -2065,7 +2114,7 @@
       "required": true,
       "types": [
         {
-          "type": "decorator_list",
+          "type": "annotation_list",
           "named": true
         },
         {
@@ -2099,6 +2148,10 @@
       "required": true,
       "types": [
         {
+          "type": "annotation_list",
+          "named": true
+        },
+        {
           "type": "array_expression",
           "named": true
         },
@@ -2112,10 +2165,6 @@
         },
         {
           "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "decorator_list",
           "named": true
         },
         {
@@ -2250,6 +2299,10 @@
   },
   {
     "type": "\"\"\"",
+    "named": false
+  },
+  {
+    "type": "#",
     "named": false
   },
   {
