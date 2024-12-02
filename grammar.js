@@ -201,7 +201,7 @@ module.exports = grammar({
     ),
 
     enum_body: $ => seq(
-      "{", 
+      "{",
       repeat(choice(
         $.enum_spread_member,
         $.enum_member,
