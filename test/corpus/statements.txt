@@ -502,11 +502,12 @@ model Foo {
                   (identifier
                     (plain_identifier)))))))
         (model_property
-          (decorator_list
-            (decorator
-              (identifier_or_member_expression
-                (identifier
-                  (plain_identifier)))))
+          (annotation_list
+            (annotation
+              (decorator
+                (identifier_or_member_expression
+                  (identifier
+                    (plain_identifier))))))
           (identifier
             (plain_identifier))
           (reference_expression
@@ -550,6 +551,87 @@ model Foo {
           (decimal_literal))))))
 
 ============================================
+Directives
+============================================
+
+#deprecated "Use NewUser instead"
+model LegacyUser {}
+
+model Post {
+  #suppress "deprecated" "We are not ready to migrate yet"
+  author: LegacyUser;
+}
+
+model Article {
+  #deprecated "for test"
+  @test
+  author: LegacyUser;
+}
+
+---
+
+(source_file
+  (model_statement
+    (annotation_list
+      (annotation
+        (directive
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))
+          (quoted_string_literal
+            (quoted_string_fragment)))))
+    (identifier
+      (plain_identifier))
+    (model_expression))
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_expression
+      (model_body
+        (model_property
+          (annotation_list
+            (annotation
+              (directive
+                (identifier_or_member_expression
+                  (identifier
+                    (plain_identifier)))
+                (quoted_string_literal
+                  (quoted_string_fragment))
+                (quoted_string_literal
+                  (quoted_string_fragment)))))
+          (identifier
+            (plain_identifier))
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier))))))))
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_expression
+      (model_body
+        (model_property
+          (annotation_list
+            (annotation
+              (directive
+                (identifier_or_member_expression
+                  (identifier
+                    (plain_identifier)))
+                (quoted_string_literal
+                  (quoted_string_fragment))))
+            (annotation
+              (decorator
+                (identifier_or_member_expression
+                  (identifier
+                    (plain_identifier))))))
+          (identifier
+            (plain_identifier))
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (plain_identifier)))))))))
+
+============================================
 Scalars
 ============================================
 
@@ -566,15 +648,17 @@ scalar Foo extends string;
     (identifier
       (plain_identifier)))
   (scalar_statement
-    (decorator_list
-      (decorator
-        (identifier_or_member_expression
-          (identifier
-            (plain_identifier))))
-      (decorator
-        (identifier_or_member_expression
-          (identifier
-            (plain_identifier)))))
+    (annotation_list
+      (annotation
+        (decorator
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
+      (annotation
+        (decorator
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier))))))
     (identifier
       (plain_identifier)))
   (scalar_statement
@@ -624,11 +708,12 @@ enum Foo {
         (identifier
           (plain_identifier)))
       (enum_member
-        (decorator_list
-          (decorator
-            (identifier_or_member_expression
-              (identifier
-                (plain_identifier)))))
+        (annotation_list
+          (annotation
+            (decorator
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
         (identifier
           (plain_identifier))
         (enum_member_value
@@ -789,7 +874,7 @@ interface Foo {
           (reference_expression
             (identifier_or_member_expression
               (identifier
-              (plain_identifier)))))))))
+                (plain_identifier)))))))))
 
 ============================================
 Functions
@@ -908,30 +993,32 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
         (identifier
           (plain_identifier)))))
   (namespace_statement
-    (decorator_list
-      (decorator
-        (identifier_or_member_expression
-          (identifier
-            (plain_identifier)))
-        (decorator_arguments
-          (expression_list
-            (reference_expression
-              (identifier_or_member_expression
-                (identifier
-                  (plain_identifier)))))))
-      (decorator
-        (identifier_or_member_expression
-          (identifier
-            (plain_identifier)))
-        (decorator_arguments
-          (expression_list
-            (model_expression
-              (model_body
-                (model_property
+    (annotation_list
+      (annotation
+        (decorator
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))
+          (decorator_arguments
+            (expression_list
+              (reference_expression
+                (identifier_or_member_expression
                   (identifier
-                    (plain_identifier))
-                  (quoted_string_literal
-                    (quoted_string_fragment)))))))))
+                    (plain_identifier))))))))
+      (annotation
+        (decorator
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))
+          (decorator_arguments
+            (expression_list
+              (model_expression
+                (model_body
+                  (model_property
+                    (identifier
+                      (plain_identifier))
+                    (quoted_string_literal
+                      (quoted_string_fragment))))))))))
     (identifier_or_member_expression
       (identifier
         (plain_identifier))))
@@ -965,11 +1052,12 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
     (model_expression
       (model_body
         (model_property
-          (decorator_list
-            (decorator
-              (identifier_or_member_expression
-                (identifier
-                  (plain_identifier)))))
+          (annotation_list
+            (annotation
+              (decorator
+                (identifier_or_member_expression
+                  (identifier
+                    (plain_identifier))))))
           (identifier
             (plain_identifier))
           (reference_expression
@@ -992,20 +1080,21 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
             (quoted_string_literal
               (quoted_string_fragment))))
         (model_property
-          (decorator_list
-            (decorator
-              (identifier_or_member_expression
-                (identifier
-                  (plain_identifier)))
-              (decorator_arguments
-                (expression_list
-                  (reference_expression
-                    (identifier_or_member_expression
-                      (member_expression
-                        (identifier
-                          (plain_identifier))
-                        (identifier
-                          (plain_identifier)))))))))
+          (annotation_list
+            (annotation
+              (decorator
+                (identifier_or_member_expression
+                  (identifier
+                    (plain_identifier)))
+                (decorator_arguments
+                  (expression_list
+                    (reference_expression
+                      (identifier_or_member_expression
+                        (member_expression
+                          (identifier
+                            (plain_identifier))
+                          (identifier
+                            (plain_identifier))))))))))
           (identifier
             (plain_identifier))
           (reference_expression
@@ -1013,11 +1102,12 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
               (identifier
                 (builtin_type))))))))
   (model_statement
-    (decorator_list
-      (decorator
-        (identifier_or_member_expression
-          (identifier
-            (plain_identifier)))))
+    (annotation_list
+      (annotation
+        (decorator
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier))))))
     (identifier
       (plain_identifier))
     (model_expression
@@ -1060,32 +1150,35 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
                     (plain_identifier)))))))))
     (interface_body
       (interface_member
-        (decorator_list
-          (decorator
-            (identifier_or_member_expression
-              (identifier
-                (plain_identifier)))
-            (decorator_arguments
-              (expression_list
-                (reference_expression
-                  (identifier_or_member_expression
-                    (member_expression
-                      (identifier
-                        (plain_identifier))
-                      (identifier
-                        (plain_identifier))))))))
-          (decorator
-            (identifier_or_member_expression
-              (identifier
-                (plain_identifier))))
-          (decorator
-            (identifier_or_member_expression
-              (identifier
-                (plain_identifier)))
-            (decorator_arguments
-              (expression_list
-                (quoted_string_literal
-                  (quoted_string_fragment))))))
+        (annotation_list
+          (annotation
+            (decorator
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier)))
+              (decorator_arguments
+                (expression_list
+                  (reference_expression
+                    (identifier_or_member_expression
+                      (member_expression
+                        (identifier
+                          (plain_identifier))
+                        (identifier
+                          (plain_identifier)))))))))
+          (annotation
+            (decorator
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier)))))
+          (annotation
+            (decorator
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier)))
+              (decorator_arguments
+                (expression_list
+                  (quoted_string_literal
+                    (quoted_string_fragment)))))))
         (identifier
           (plain_identifier))
         (operation_signature_declaration
@@ -1145,15 +1238,16 @@ union Foo {
       (plain_identifier))
     (union_body
       (union_variant
-        (decorator_list
-          (decorator
-            (identifier_or_member_expression
-              (identifier
-                (plain_identifier)))
-            (decorator_arguments
-              (expression_list
-                (quoted_string_literal
-                  (quoted_string_fragment))))))
+        (annotation_list
+          (annotation
+            (decorator
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier)))
+              (decorator_arguments
+                (expression_list
+                  (quoted_string_literal
+                    (quoted_string_fragment)))))))
         (parenthesized_expression
           (union_expression
             (reference_expression

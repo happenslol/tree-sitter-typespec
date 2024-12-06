@@ -32,8 +32,6 @@ module.exports = grammar({
       ";",
     ),
 
-    decorator_list: $ => repeat1($.decorator),
-
     decorator: $ => prec.right(seq(
       "@",
       field("name", $.identifier_or_member_expression),
@@ -43,6 +41,16 @@ module.exports = grammar({
     decorator_arguments: $ => seq(
       "(", optional($.expression_list), ")",
     ),
+
+    directive: $ => prec.right(seq(
+      "#",
+      field("name", $.identifier_or_member_expression),
+      repeat1($._string_literal)
+    )),
+
+    annotation_list: $ => repeat1($.annotation),
+
+    annotation: $ => choice($.decorator, $.directive),
 
     import_statement: $ => seq(
       "import",
@@ -57,7 +65,7 @@ module.exports = grammar({
     ),
 
     namespace_statement: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       "namespace",
       field("name", $.identifier_or_member_expression),
       choice(
@@ -69,7 +77,7 @@ module.exports = grammar({
     namespace_body: $ => seq("{", repeat($._statement), "}"),
 
     model_statement: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       "model",
       field("name", $.identifier),
       optional($.template_parameters),
@@ -126,7 +134,7 @@ module.exports = grammar({
     model_property: $ => choice(
       $.model_spread_property,
       seq(
-        optional($.decorator_list),
+        optional($.annotation_list),
         field("name", choice($.identifier, $._string_literal)),
         optional("?"),
         ":",
@@ -138,7 +146,7 @@ module.exports = grammar({
     model_spread_property: $ => seq("...", $.reference_expression),
 
     union_statement: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       "union",
       field("name", $.identifier),
       optional($.template_parameters),
@@ -148,7 +156,7 @@ module.exports = grammar({
     union_body: $ => seq("{", repeat($.union_variant), "}"),
 
     union_variant: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       optional(seq(
         choice(
           field("name", $.identifier),
@@ -161,7 +169,7 @@ module.exports = grammar({
     ),
 
     scalar_statement: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       "scalar",
       field("name", $.identifier),
       optional($.template_parameters),
@@ -172,7 +180,7 @@ module.exports = grammar({
     scalar_extends: $ => seq("extends", $._expression),
 
     interface_statement: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       "interface",
       field("name", $.identifier),
       optional($.template_parameters),
@@ -185,7 +193,7 @@ module.exports = grammar({
     interface_body: $ => seq("{", repeat($.interface_member), "}"),
 
     interface_member: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       optional("op"),
       $.identifier,
       $._operation_signature,
@@ -193,14 +201,14 @@ module.exports = grammar({
     ),
 
     enum_statement: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       "enum",
       field("name", $.identifier),
       $.enum_body,
     ),
 
     enum_body: $ => seq(
-      "{", 
+      "{",
       repeat(choice(
         $.enum_spread_member,
         $.enum_member,
@@ -211,7 +219,7 @@ module.exports = grammar({
     enum_spread_member: $ => seq("...", $.reference_expression),
 
     enum_member: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       field("name", choice($.identifier, $._string_literal)),
       optional($.enum_member_value),
       optional(choice(",", ";")),
@@ -238,7 +246,7 @@ module.exports = grammar({
     ),
 
     operation_statement: $ => seq(
-      optional($.decorator_list),
+      optional($.annotation_list),
       "op",
       field("name", $.identifier),
       optional($.template_parameters),
