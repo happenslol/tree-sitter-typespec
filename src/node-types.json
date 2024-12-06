@@ -992,74 +992,142 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "array_expression",
+            "named": true
+          },
+          {
+            "type": "binary_integer_literal",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hex_integer_literal",
+            "named": true
+          },
+          {
+            "type": "intersection_expression",
+            "named": true
+          },
+          {
+            "type": "model_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "quoted_string_literal",
+            "named": true
+          },
+          {
+            "type": "reference_expression",
+            "named": true
+          },
+          {
+            "type": "triple_quoted_string_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_expression",
+            "named": true
+          },
+          {
+            "type": "union_expression",
+            "named": true
+          },
+          {
+            "type": "value_of_expression",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "array_expression",
+            "named": true
+          },
+          {
+            "type": "binary_integer_literal",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hex_integer_literal",
+            "named": true
+          },
+          {
+            "type": "intersection_expression",
+            "named": true
+          },
+          {
+            "type": "model_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "quoted_string_literal",
+            "named": true
+          },
+          {
+            "type": "reference_expression",
+            "named": true
+          },
+          {
+            "type": "triple_quoted_string_literal",
+            "named": true
+          },
+          {
+            "type": "tuple_expression",
+            "named": true
+          },
+          {
+            "type": "union_expression",
+            "named": true
+          },
+          {
+            "type": "value_of_expression",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
-        {
-          "type": "array_expression",
-          "named": true
-        },
-        {
-          "type": "binary_integer_literal",
-          "named": true
-        },
-        {
-          "type": "boolean_literal",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
         {
           "type": "decorator_list",
           "named": true
         },
         {
-          "type": "hex_integer_literal",
-          "named": true
-        },
-        {
-          "type": "intersection_expression",
-          "named": true
-        },
-        {
-          "type": "model_expression",
-          "named": true
-        },
-        {
           "type": "model_spread_property",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "quoted_string_literal",
-          "named": true
-        },
-        {
-          "type": "reference_expression",
-          "named": true
-        },
-        {
-          "type": "triple_quoted_string_literal",
-          "named": true
-        },
-        {
-          "type": "tuple_expression",
-          "named": true
-        },
-        {
-          "type": "union_expression",
-          "named": true
-        },
-        {
-          "type": "value_of_expression",
           "named": true
         }
       ]
