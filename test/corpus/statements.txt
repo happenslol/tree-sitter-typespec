@@ -550,6 +550,32 @@ model Foo {
           (decimal_literal))))))
 
 ============================================
+Default values
+============================================
+
+model Dog {
+  address?: string = "wild";
+}
+
+---
+
+(source_file
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_expression
+      (model_body
+        (model_property
+          (identifier
+            (plain_identifier))
+          (reference_expression
+            (identifier_or_member_expression
+              (identifier
+                (builtin_type))))
+          (quoted_string_literal
+            (quoted_string_fragment)))))))
+
+============================================
 Scalars
 ============================================
 
