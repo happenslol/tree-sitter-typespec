@@ -441,9 +441,9 @@ model Foo {
 }
 
 model Foo {
-  ...Bar
-  ...Bar.Baz
-  
+  ...Bar;
+  ...Bar.Baz;
+
   @foo a: string;
   b?: int32,
   "c": bool
@@ -620,8 +620,8 @@ Enums
 ============================================
 
 enum Foo {
-  ...Bar
-  ...Bar.Baz
+  ...Bar;
+  ...Bar.Baz;
 
   A;
   @foo B: "test",

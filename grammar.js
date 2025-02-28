@@ -129,7 +129,13 @@ module.exports = grammar({
 
     model_expression: $ => seq("{", optional($.model_body), "}"),
 
-    model_body: $ => repeat1($.model_property),
+    model_body: $ => $._model_property_list,
+
+    _model_property_list: $ => seq(
+      $.model_property,
+      optional(choice(",", ";")),
+      optional($._model_property_list)
+    ),
 
     model_property: $ => choice(
       $.model_spread_property,
@@ -140,7 +146,6 @@ module.exports = grammar({
         ":",
         field("type", $._expression),
         optional(seq("=", field("value", $._expression))),
-        optional(choice(",", ";")),
       ),
     ),
 
@@ -210,11 +215,14 @@ module.exports = grammar({
 
     enum_body: $ => seq(
       "{",
-      repeat(choice(
-        $.enum_spread_member,
-        $.enum_member,
-      )),
+      optional($._enum_member_list),
       "}"
+    ),
+
+    _enum_member_list: $ => seq(
+      choice($.enum_spread_member, $.enum_member),
+      optional(choice(",", ";")),
+      optional($._enum_member_list)
     ),
 
     enum_spread_member: $ => seq("...", $.reference_expression),
@@ -223,7 +231,6 @@ module.exports = grammar({
       optional($.annotation_list),
       field("name", choice($.identifier, $._string_literal)),
       optional($.enum_member_value),
-      optional(choice(",", ";")),
     ),
 
     enum_member_value: $ => seq(
@@ -268,7 +275,7 @@ module.exports = grammar({
 
     operation_arguments: $ => seq(
       "(",
-      repeat($.model_property),
+      optional($._model_property_list),
       ")",
     ),
 
