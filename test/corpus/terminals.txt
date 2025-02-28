@@ -1,0 +1,260 @@
+============================================
+model no trailing terminals
+============================================
+model Foo {
+  ...Bar
+  d: A | B
+  f: 123
+}
+---
+(source_file
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_expression
+      (model_body
+        (model_property
+          (model_spread_property
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (union_expression
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (decimal_literal))))))
+============================================
+model semicolon trailing terminals
+============================================
+model Foo {
+  ...Bar;
+  d: A | B;
+  f: 123;
+}
+---
+(source_file
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_expression
+      (model_body
+        (model_property
+          (model_spread_property
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (union_expression
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (decimal_literal))))))
+============================================
+model comma trailing terminals
+============================================
+model Foo {
+  ...Bar,
+  d: A | B,
+  f: 123,
+}
+---
+(source_file
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_expression
+      (model_body
+        (model_property
+          (model_spread_property
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (union_expression
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (decimal_literal))))))
+============================================
+model semicolon joined
+============================================
+model Foo {
+  ...Bar,
+  d: A | B,
+  f: 123
+}
+---
+(source_file
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_expression
+      (model_body
+        (model_property
+          (model_spread_property
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (union_expression
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))
+            (reference_expression
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier))))))
+        (model_property
+          (identifier
+            (plain_identifier))
+          (decimal_literal))))))
+============================================
+enum no trailing terminals
+============================================
+enum Foo {
+  ...Bar
+  A
+  C: 123
+}
+
+---
+(source_file
+  (enum_statement
+    (identifier
+      (plain_identifier))
+    (enum_body
+      (enum_spread_member
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
+      (enum_member
+        (identifier
+          (plain_identifier)))
+      (enum_member
+        (identifier
+          (plain_identifier))
+        (enum_member_value
+          (decimal_literal))))))
+============================================
+enum semicolon trailing terminals
+============================================
+enum Foo {
+  ...Bar;
+  A;
+  C: 123;
+}
+
+---
+(source_file
+  (enum_statement
+    (identifier
+      (plain_identifier))
+    (enum_body
+      (enum_spread_member
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
+      (enum_member
+        (identifier
+          (plain_identifier)))
+      (enum_member
+        (identifier
+          (plain_identifier))
+        (enum_member_value
+          (decimal_literal))))))
+============================================
+enum comma trailing terminals
+============================================
+enum Foo {
+  ...Bar,
+  A,
+  C: 123,
+}
+
+---
+(source_file
+  (enum_statement
+    (identifier
+      (plain_identifier))
+    (enum_body
+      (enum_spread_member
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
+      (enum_member
+        (identifier
+          (plain_identifier)))
+      (enum_member
+        (identifier
+          (plain_identifier))
+        (enum_member_value
+          (decimal_literal))))))
+============================================
+enum comma joined members
+============================================
+enum Foo {
+  ...Bar,
+  A,
+  C: 123
+}
+
+---
+(source_file
+  (enum_statement
+    (identifier
+      (plain_identifier))
+    (enum_body
+      (enum_spread_member
+        (reference_expression
+          (identifier_or_member_expression
+            (identifier
+              (plain_identifier)))))
+      (enum_member
+        (identifier
+          (plain_identifier)))
+      (enum_member
+        (identifier
+          (plain_identifier))
+        (enum_member_value
+          (decimal_literal))))))
