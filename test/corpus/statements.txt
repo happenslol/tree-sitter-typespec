@@ -730,7 +730,7 @@ Decorator augments
       (identifier
         (plain_identifier)))
     (decorator_arguments
-      (expression_list
+      (value_list
         (quoted_string_literal
           (quoted_string_fragment))
         (quoted_string_literal
@@ -882,12 +882,10 @@ import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
 
-using TypeSpec.Versioning;
+using Versioning;
 
 @versioned(Versions)
-@service({
-  title: "Widget Service",
-})
+@service(#{ title: "Widget Service" })
 namespace DemoService;
 
 enum Versions {
@@ -895,8 +893,8 @@ enum Versions {
   v2,
 }
 
-using TypeSpec.Http;
-using TypeSpec.Rest;
+using Http;
+using Rest;
 
 model Widget {
   @key id: string;
@@ -932,11 +930,8 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
       (quoted_string_fragment)))
   (using_statement
     (identifier_or_member_expression
-      (member_expression
-        (identifier
-          (plain_identifier))
-        (identifier
-          (plain_identifier)))))
+      (identifier
+        (plain_identifier))))
   (namespace_statement
     (annotation_list
       (annotation
@@ -945,25 +940,23 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
             (identifier
               (plain_identifier)))
           (decorator_arguments
-            (expression_list
-              (reference_expression
-                (identifier_or_member_expression
-                  (identifier
-                    (plain_identifier))))))))
+            (value_list
+              (identifier_or_member_expression
+                (identifier
+                  (plain_identifier)))))))
       (annotation
         (decorator
           (identifier_or_member_expression
             (identifier
               (plain_identifier)))
           (decorator_arguments
-            (expression_list
-              (model_expression
-                (model_body
-                  (model_property
-                    (identifier
-                      (plain_identifier))
-                    (quoted_string_literal
-                      (quoted_string_fragment))))))))))
+            (value_list
+              (object_value
+                (object_member
+                  (identifier
+                    (plain_identifier))
+                  (quoted_string_literal
+                    (quoted_string_fragment)))))))))
     (identifier_or_member_expression
       (identifier
         (plain_identifier))))
@@ -979,18 +972,12 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
           (plain_identifier)))))
   (using_statement
     (identifier_or_member_expression
-      (member_expression
-        (identifier
-          (plain_identifier))
-        (identifier
-          (plain_identifier)))))
+      (identifier
+        (plain_identifier))))
   (using_statement
     (identifier_or_member_expression
-      (member_expression
-        (identifier
-          (plain_identifier))
-        (identifier
-          (plain_identifier)))))
+      (identifier
+        (plain_identifier))))
   (model_statement
     (identifier
       (plain_identifier))
@@ -1032,14 +1019,13 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
                   (identifier
                     (plain_identifier)))
                 (decorator_arguments
-                  (expression_list
-                    (reference_expression
-                      (identifier_or_member_expression
-                        (member_expression
-                          (identifier
-                            (plain_identifier))
-                          (identifier
-                            (plain_identifier))))))))))
+                  (value_list
+                    (identifier_or_member_expression
+                      (member_expression
+                        (identifier
+                          (plain_identifier))
+                        (identifier
+                          (plain_identifier)))))))))
           (identifier
             (plain_identifier))
           (reference_expression
@@ -1102,14 +1088,13 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
                 (identifier
                   (plain_identifier)))
               (decorator_arguments
-                (expression_list
-                  (reference_expression
-                    (identifier_or_member_expression
-                      (member_expression
-                        (identifier
-                          (plain_identifier))
-                        (identifier
-                          (plain_identifier)))))))))
+                (value_list
+                  (identifier_or_member_expression
+                    (member_expression
+                      (identifier
+                        (plain_identifier))
+                      (identifier
+                        (plain_identifier))))))))
           (annotation
             (decorator
               (identifier_or_member_expression
@@ -1121,7 +1106,7 @@ interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
                 (identifier
                   (plain_identifier)))
               (decorator_arguments
-                (expression_list
+                (value_list
                   (quoted_string_literal
                     (quoted_string_fragment)))))))
         (identifier
@@ -1190,7 +1175,7 @@ union Foo {
                 (identifier
                   (plain_identifier)))
               (decorator_arguments
-                (expression_list
+                (value_list
                   (quoted_string_literal
                     (quoted_string_fragment)))))))
         (parenthesized_expression
@@ -1203,3 +1188,65 @@ union Foo {
               (identifier_or_member_expression
                 (identifier
                   (plain_identifier))))))))))
+
+============================================
+Values
+============================================
+
+const object = #{ x: 0, y: 0 };
+
+const nestedObject = #{
+  prop1: #{ nested: true },
+};
+
+const objectArray = #[#{ x: 0, y: 0 }, #{ x: 1, y: 1 }];
+
+---
+
+(source_file
+  (const_statement
+    (identifier
+      (plain_identifier))
+    (object_value
+      (object_member
+        (identifier
+          (plain_identifier))
+        (decimal_literal))
+      (object_member
+        (identifier
+          (plain_identifier))
+        (decimal_literal))))
+  (const_statement
+    (identifier
+      (plain_identifier))
+    (object_value
+      (object_member
+        (identifier
+          (plain_identifier))
+        (object_value
+          (object_member
+            (identifier
+              (plain_identifier))
+            (boolean_literal))))))
+  (const_statement
+    (identifier
+      (plain_identifier))
+    (array_value
+      (object_value
+        (object_member
+          (identifier
+            (plain_identifier))
+          (decimal_literal))
+        (object_member
+          (identifier
+            (plain_identifier))
+          (decimal_literal)))
+      (object_value
+        (object_member
+          (identifier
+            (plain_identifier))
+          (decimal_literal))
+        (object_member
+          (identifier
+            (plain_identifier))
+          (decimal_literal))))))

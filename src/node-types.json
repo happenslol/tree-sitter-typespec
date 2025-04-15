@@ -167,6 +167,53 @@
     }
   },
   {
+    "type": "array_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array_value",
+          "named": true
+        },
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "identifier_or_member_expression",
+          "named": true
+        },
+        {
+          "type": "object_value",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "triple_quoted_string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "augment_decorator_statement",
     "named": true,
     "fields": {
@@ -222,6 +269,64 @@
     "fields": {}
   },
   {
+    "type": "const_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_value",
+            "named": true
+          },
+          {
+            "type": "binary_integer_literal",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hex_integer_literal",
+            "named": true
+          },
+          {
+            "type": "identifier_or_member_expression",
+            "named": true
+          },
+          {
+            "type": "object_value",
+            "named": true
+          },
+          {
+            "type": "quoted_string_literal",
+            "named": true
+          },
+          {
+            "type": "triple_quoted_string_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "decorator",
     "named": true,
     "fields": {
@@ -256,7 +361,7 @@
       "required": false,
       "types": [
         {
-          "type": "expression_list",
+          "type": "value_list",
           "named": true
         }
       ]
@@ -1256,6 +1361,10 @@
           "named": true
         },
         {
+          "type": "const_statement",
+          "named": true
+        },
+        {
           "type": "decorator_declaration_statement",
           "named": true
         },
@@ -1327,6 +1436,87 @@
         },
         {
           "type": "namespace_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "object_member",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "quoted_string_literal",
+            "named": true
+          },
+          {
+            "type": "triple_quoted_string_literal",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_value",
+            "named": true
+          },
+          {
+            "type": "binary_integer_literal",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hex_integer_literal",
+            "named": true
+          },
+          {
+            "type": "identifier_or_member_expression",
+            "named": true
+          },
+          {
+            "type": "object_value",
+            "named": true
+          },
+          {
+            "type": "quoted_string_literal",
+            "named": true
+          },
+          {
+            "type": "triple_quoted_string_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "object_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "object_member",
           "named": true
         }
       ]
@@ -1707,6 +1897,10 @@
         },
         {
           "type": "augment_decorator_statement",
+          "named": true
+        },
+        {
+          "type": "const_statement",
           "named": true
         },
         {
@@ -2295,6 +2489,53 @@
     }
   },
   {
+    "type": "value_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_value",
+          "named": true
+        },
+        {
+          "type": "binary_integer_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_integer_literal",
+          "named": true
+        },
+        {
+          "type": "identifier_or_member_expression",
+          "named": true
+        },
+        {
+          "type": "object_value",
+          "named": true
+        },
+        {
+          "type": "quoted_string_literal",
+          "named": true
+        },
+        {
+          "type": "triple_quoted_string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "value_of_expression",
     "named": true,
     "fields": {},
@@ -2470,6 +2711,10 @@
     "named": false
   },
   {
+    "type": "const",
+    "named": false
+  },
+  {
     "type": "dec",
     "named": false
   },
@@ -2641,10 +2886,6 @@
   },
   {
     "type": "uint32",
-    "named": false
-  },
-  {
-    "type": "uint6",
     "named": false
   },
   {
