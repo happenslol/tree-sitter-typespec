@@ -29,7 +29,61 @@ module.exports = grammar({
       $.operation_statement,
       $.decorator_declaration_statement,
       $.function_declaration_statement,
+      $.const_statement,
       ";",
+    ),
+
+    const_statement: $ => seq(
+      "const",
+      field("name", $.identifier),
+      "=",
+      field("value", $._value),
+      ";",
+    ),
+
+    _value: $ => choice(
+      $.object_value,
+      $.array_value,
+      $._literal,
+      $.identifier_or_member_expression,
+    ),
+
+    object_value: $ => seq(
+      "#",
+      "{",
+      optional($._object_member_list),
+      "}",
+    ),
+
+    _object_member_list: $ => seq(
+      $.object_member,
+      repeat(seq(",", $.object_member)),
+      optional(","),
+    ),
+
+    object_member: $ => seq(
+      field("key", choice($.identifier, $._string_literal)),
+      ":",
+      field("value", $._value),
+    ),
+
+    array_value: $ => seq(
+      "#",
+      "[",
+      optional($._array_value_list),
+      "]",
+    ),
+
+    _array_value_list: $ => seq(
+      $._value,
+      repeat(seq(",", $._value)),
+      optional(","),
+    ),
+
+    value_list: $ => seq(
+      $._value,
+      repeat(seq(",", $._value)),
+      optional(","),
     ),
 
     decorator: $ => prec.right(seq(
@@ -39,7 +93,7 @@ module.exports = grammar({
     )),
 
     decorator_arguments: $ => seq(
-      "(", optional($.expression_list), ")",
+      "(", optional($.value_list), ")",
     ),
 
     directive: $ => prec.right(seq(
@@ -348,10 +402,10 @@ module.exports = grammar({
 
     template_default: $ => seq("=", $._expression),
 
-    identifier_or_member_expression: $ => choice(
+    identifier_or_member_expression: $ => prec(0, choice(
       $.identifier,
       $.member_expression,
-    ),
+    )),
 
     identifier: $ => choice(
       $.builtin_type,
@@ -368,7 +422,7 @@ module.exports = grammar({
       "int16",
       "int",
       "safeint"	,
-      "uint6",
+      "uint8",
       "uint32",
       "uint16",
       "uint8",
@@ -410,11 +464,11 @@ module.exports = grammar({
       repeat1(seq(".", field("member", $.identifier))),
     ),
 
-    _literal: $ => choice(
+    _literal: $ => prec(1, choice(
       $._string_literal,
       $.boolean_literal,
       $._numeric_literal,
-    ),
+    )),
 
     boolean_literal: $ => choice("true", "false"),
 
