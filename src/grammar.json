@@ -146,11 +146,7 @@
       "members": [
         {
           "type": "STRING",
-          "value": "#"
-        },
-        {
-          "type": "STRING",
-          "value": "{"
+          "value": "#{"
         },
         {
           "type": "CHOICE",
@@ -246,11 +242,7 @@
       "members": [
         {
           "type": "STRING",
-          "value": "#"
-        },
-        {
-          "type": "STRING",
-          "value": "["
+          "value": "#["
         },
         {
           "type": "CHOICE",
@@ -1382,8 +1374,12 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
           "type": "SYMBOL",

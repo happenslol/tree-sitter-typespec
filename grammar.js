@@ -49,8 +49,7 @@ module.exports = grammar({
     ),
 
     object_value: $ => seq(
-      "#",
-      "{",
+      "#{",
       optional($._object_member_list),
       "}",
     ),
@@ -68,8 +67,7 @@ module.exports = grammar({
     ),
 
     array_value: $ => seq(
-      "#",
-      "[",
+      "#[",
       optional($._array_value_list),
       "]",
     ),
@@ -255,7 +253,7 @@ module.exports = grammar({
     interface_member: $ => seq(
       optional($.annotation_list),
       optional("op"),
-      $.identifier,
+      field("name", $.identifier),
       $._operation_signature,
       ";",
     ),
