@@ -4,6 +4,7 @@
   "is"
   "extends"
   "valueof"
+  "typeof"
 ] @keyword.operator
 
 [

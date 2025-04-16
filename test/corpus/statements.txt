@@ -1201,6 +1201,9 @@ const nestedObject = #{
 
 const objectArray = #[#{ x: 0, y: 0 }, #{ x: 1, y: 1 }];
 
+model Type is typeof object;
+model StringLiteralType is typeof "foo";
+
 ---
 
 (source_file
@@ -1249,4 +1252,19 @@ const objectArray = #[#{ x: 0, y: 0 }, #{ x: 1, y: 1 }];
         (object_member
           (identifier
             (plain_identifier))
-          (decimal_literal))))))
+          (decimal_literal)))))
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_is_heritage
+      (typeof_expression
+        (identifier_or_member_expression
+          (identifier
+            (plain_identifier))))))
+  (model_statement
+    (identifier
+      (plain_identifier))
+    (model_is_heritage
+      (typeof_expression
+        (quoted_string_literal
+          (quoted_string_fragment))))))

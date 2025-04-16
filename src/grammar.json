@@ -720,6 +720,10 @@
         {
           "type": "SYMBOL",
           "name": "_primary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "typeof_expression"
         }
       ]
     },
@@ -818,6 +822,19 @@
           }
         ]
       }
+    },
+    "typeof_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "typeof"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_value"
+        }
+      ]
     },
     "_primary_expression": {
       "type": "CHOICE",

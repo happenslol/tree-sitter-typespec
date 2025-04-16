@@ -162,12 +162,14 @@ module.exports = grammar({
       $.value_of_expression,
       $.array_expression,
       $._primary_expression,
+      $.typeof_expression,
     ),
 
     union_expression: $ => prec.left(1, seq(optional($._expression), "|", $._expression)),
     intersection_expression: $ => prec.left(2, seq(optional($._expression), "&", $._expression)),
     value_of_expression: $ => prec(3, seq("valueof", $._expression)),
     array_expression: $ => prec(4, seq($._primary_expression, "[", "]")),
+    typeof_expression: $ => seq("typeof", $._value),
 
     _primary_expression: $ => choice(
       $._literal,
