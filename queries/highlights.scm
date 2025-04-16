@@ -30,9 +30,7 @@
   "using"
 ] @keyword.import
 
-[
-  "const"
-] @keyword
+"const" @keyword
 
 [
   "("
