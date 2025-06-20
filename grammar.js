@@ -36,6 +36,7 @@ module.exports = grammar({
     const_statement: $ => seq(
       "const",
       field("name", $.identifier),
+      optional($.type_annotation),
       "=",
       field("value", $._value),
       ";",
@@ -421,7 +422,7 @@ module.exports = grammar({
       "int32",
       "int16",
       "int",
-      "safeint"	,
+      "safeint",
       "uint8",
       "uint32",
       "uint16",

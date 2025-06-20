@@ -1193,6 +1193,8 @@ union Foo {
 Values
 ============================================
 
+const someNumber: int32 = 0;
+const value: string | null = null;
 const object = #{ x: 0, y: 0 };
 
 const nestedObject = #{
@@ -1210,6 +1212,31 @@ model StringLiteralType is typeof "foo";
   (const_statement
     (identifier
       (plain_identifier))
+    (type_annotation
+      (reference_expression
+      (identifier_or_member_expression
+        (identifier
+        (builtin_type)))))
+      (decimal_literal))
+  (const_statement
+    (identifier
+      (plain_identifier))
+    (type_annotation
+        (union_expression
+        (reference_expression
+            (identifier_or_member_expression
+            (identifier
+                (builtin_type))))
+        (reference_expression
+            (identifier_or_member_expression
+            (identifier
+                (builtin_type))))))
+    (identifier_or_member_expression
+        (identifier
+        (builtin_type))))
+    (const_statement
+    (identifier
+        (plain_identifier))
     (object_value
       (object_member
         (identifier
